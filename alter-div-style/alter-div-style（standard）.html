@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    body, ul, li {
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      list-style: none;
+    }
+    .wrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      box-sizing: border-box;
+      padding: 40px;
+    }
+    
+    .title {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+    }
+    .btnSet {
+      width: 200px;
+      height: 40px;
+      margin: 0 40px;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      border: 2px solid #000;
+      transition: 300ms;
+    }
+    .shadow {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      transform: scale(0);
+      transition: 200ms linear;
+    }
+    .settings ul {
+      width: 360px;
+      height: 360px;
+      border: 10px solid #ccc;
+      background-color: #ffffff;
+      position: absolute;
+      right: 5%;
+      bottom: 5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .settings ul li {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .settings ul li span {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #000;
+      margin: 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .settings ul li span:hover {
+      background-color: rgb(244, 185, 132);
+    }
+    .settings ul li span.red {
+      background-color: rgb(226, 114, 114);
+    }
+    .settings ul li span.red:hover {
+      background: red;
+    }
+    .settings ul li span.yellow {
+      background-color: rgb(233, 228, 103);
+    }
+    .settings ul li span.yellow:hover {
+      background: yellow;
+    }
+    .settings ul li span.blue {
+      background-color: rgb(107, 169, 233);
+    }
+    .settings ul li span.blue:hover {
+      background: blue;
+    }
+    .settings ul li button {
+      width: 80px;
+      height: 30px;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="title">
+      <h1>点击设置样式</h1>
+      <button class="btnSet">设置</button>
+    </header>
+    <div class="box"></div>
+    
+    <div class="shadow">
+      
+      <div class="settings">
+        <ul>
+          <li>
+            宽度：
+            <span class="w200">200</span>
+            <span class="w300">300</span>
+            <span class="w400">400</span>
+          </li>
+          <li>
+            高度：
+            <span class="h200">200</span>
+            <span class="h300">300</span>
+            <span class="h400">400</span>
+          </li>
+          <li>
+            颜色：
+            <span class="red">红</span>
+            <span class="yellow">黄</span>
+            <span class="blue">蓝</span>
+          </li>
+          <li>
+            <button class="init">恢复</button>
+            <button class="sure">确定</button>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+  <script>
+    // 点击设置按钮 
+    var btnSet = document.querySelector('.btnSet');
+    // 遮罩层
+    var shadow = document.querySelector('.shadow');
+    
+    // 要操作的div
+    var box = document.querySelector('.box');
+    
+    // 点击让遮罩层显示
+    btnSet.onclick = function (){
+      shadow.style.transform = 'scale(1)';
+    }
+    
+    var w200 = document.querySelector('.w200');
+    
+    w200.onclick = function (){
+      box.style.width = '200px';
+    };
+    
+    var w300 = document.querySelector('.w300');
+    
+    w300.onclick = function (){
+      box.style.width = '300px';
+    };
+    
+    var w400 = document.querySelector('.w400');
+    
+    w400.onclick = function (){
+      box.style.width = '400px';
+    };
+    
+    var h200 = document.querySelector('.h200');
+    
+    h200.onclick = function (){
+      box.style.height = '200px';
+    };
+    
+    var h300 = document.querySelector('.h300');
+    
+    h300.onclick = function (){
+      box.style.height = '300px';
+    };
+    
+    var h400 = document.querySelector('.h400');
+    
+    h400.onclick = function (){
+      box.style.height = '400px';
+    };
+    
+    var red = document.querySelector('.red');
+    
+    red.onclick = function (){
+      box.style.backgroundColor = 'red';
+    };
+    
+    var yellow = document.querySelector('.yellow');
+    
+    yellow.onclick = function (){
+      box.style.backgroundColor = 'yellow';
+    };
+    
+    var blue = document.querySelector('.blue');
+    
+    blue.onclick = function (){
+      box.style.backgroundColor = 'blue';
+    };
+    
+    var sure = document.querySelector('.sure');
+    
+    sure.onclick = function (){
+      shadow.style.transform = '';
+    };
+    
+    var init = document.querySelector('.init');
+    
+    init.onclick = function (){
+      box.style.cssText = '';
+      shadow.style.transform = '';
+    };
+  
+  
+  
+  </script>
+</body>
+</html>

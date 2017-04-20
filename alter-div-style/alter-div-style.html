@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="html/text;charset=utf-8">
+	<title>0328课后练习</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+		}
+		.div1{
+			position: relative;
+			margin:10px 0 0 10px;
+		}
+		label{ font-size: 25px;}
+		.btn{
+			width: 100px;
+			height: 50px;
+			font-size: 15px;
+			color: #fff;
+			line-height: 50px;
+			text-align: center;
+			background-color: red;
+			border:none;
+		}
+		#box{
+			position: relative;
+			width: 100px;
+			height: 100px;
+			border:5px solid #000;
+			margin-top: 20px;
+			transition: all 500ms;
+		}
+		#change{
+			position: absolute;
+			top: 200px;
+			right: 200px;
+			width: 500px;
+			height: 350px;
+			font-size: 20px;
+			border:10px solid grey;
+			display: none;
+			z-index: 100;
+			background-color: #fff;
+		}
+		#change div{
+			margin: 0 0 10px 0;
+			text-align: center;
+		}
+		#change .div1{
+			margin-top: 50px;
+		}
+		#change label{
+			display: inline-block;
+			width: 200px;
+			font-size: 20px;
+		}
+		#change button{
+			width:50px;
+			height: 50px;
+			text-align: center;
+			background-color: pink;
+			border:none;
+
+		}
+		#change .reset,#change .submit{
+			width: 80px;
+			height: 40px;
+			color: #fff;
+			background-color: blue;
+		}
+		.blanks{
+			width: 0;
+			height: 0;
+			position: absolute;
+			top: 0;
+			background-color: #ccc;
+			z-index: 1;
+			-moz-opacity:0.7;
+			opacity: .70;
+			filter:alpha(opacity=70);
+			transition:all 500ms;
+		}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oBtn = document.querySelector('.btn');
+		var oBox = document.getElementById('box');
+		var oChange = document.getElementById('change');
+		var oRed = oChange.querySelector('.red');
+		var oYellow = oChange.querySelector('.yellow');
+		var oBlue = oChange.querySelector('.blue');
+		var oW200 = oChange.querySelector('.w200');
+		var oW300 = oChange.querySelector('.w300');
+		var oW400 = oChange.querySelector('.w400'); 
+		var oH200 = oChange.querySelector('.h200');
+		var oH300 = oChange.querySelector('.h300');
+		var oH400 = oChange.querySelector('.h400'); 
+		var oReset = oChange.querySelector('.reset');
+		var oSubmit = oChange.querySelector('.submit');
+		var oBlanks = document.querySelector('.blanks');
+
+		oBtn.onclick = function(){
+			oChange.style.display = 'block';
+			oBlanks.style.height = oBlanks.style.width = '100%';
+		}
+
+		oRed.onclick = function(){
+			oBox.style.backgroundColor = 'red';
+		}
+		oYellow.onclick = function(){
+			oBox.style.backgroundColor = 'yellow';
+		}
+		oBlue.onclick = function(){
+			oBox.style.backgroundColor = 'blue';
+		}
+		oW200.onclick = function(){
+			oBox.style.width = '200px';
+		}
+		oW300.onclick = function(){
+			oBox.style.width = '300px';
+		}
+		oW400.onclick = function(){
+			oBox.style.width = '400px';
+		}
+		oH200.onclick = function(){
+			oBox.style.height = '200px';
+		}
+		oH300.onclick = function(){
+			oBox.style.height = '300px';
+		}
+		oH400.onclick = function(){
+			oBox.style.height = '400px';
+		}
+
+		oReset.onclick = function(){
+			oBox.style.cssText = '';
+		}
+		oSubmit.onclick = function(){
+			oChange.style.display = 'none';
+			oBlanks.style.height = oBlanks.style.width = '0';
+		}
+	}
+	</script>
+</head>
+<body>
+	<div class="div1">
+		<label>请为下面的DIV设置样式：</label>
+		<button class="btn">点击设置</button>
+		<div id="box"></div>
+	</div>
+
+	<div id="change">
+			<div class="div1">
+				<label>请选择背景色：</label>
+				<button class="red">红</button>
+				<button class="yellow">黄</button>
+				<button class="blue">蓝</button>
+				<br/>
+			</div>
+			<div>
+				<label>请选择宽（px）：</label>
+				<button class="w200">200</button>
+				<button class="w300">300</button>
+				<button class="w400">400</button>
+				<br/>
+			</div>
+			<div>
+				<label>请选择高（px）：</label>
+				<button class="h200">200</button>
+				<button class="h300">300</button>
+				<button class="h400">400</button>
+				<br/>
+			</div>
+			<div>
+				<button class="reset">恢复</button>
+				<button class="submit">确定</button>
+			</div>
+	</div>
+	
+	<div class="blanks"></div>
+		
+</body>
+</html>
