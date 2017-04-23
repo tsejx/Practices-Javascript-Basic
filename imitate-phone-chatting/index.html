@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="html/text;charset=utf-8">
+	<title>2017-03-30课后作业 微信聊天界面</title>
+</head>
+<style type="text/css">
+	body{
+		background: url(img/bg.jpg) center no-repeat;
+	}
+	body,ul,li{
+		margin: 0;
+		padding: 0
+	}
+	li{
+		list-style: none
+	}
+
+	.phone{
+		position: relative;
+		margin:20px auto;
+		width: 300px;
+		height: 550px;
+		border: 1px solid #EEEEEE;
+		border-radius: 15px;
+		background: url(img/miaov.png) 125px 500px no-repeat #e5e3ec;
+	}
+	.bar{
+		height: 6px;
+		box-sizing: border-box;
+		top: 30px;
+		margin: 10px auto;
+		width: 80px;
+		border:3px solid #979699;
+	}
+	/* 屏幕 */
+	.framework{
+		width: 260px;
+		height: 450px;
+		margin: 20px auto;
+		border:1px solid #b6b5bc;
+	}
+	.framework img{
+		width:35px;
+		height: 40px;
+		float: left;
+	}
+	.text{
+		float: left;
+		width: 145px;
+		height: 30px;
+		margin: 4px 10px;
+		padding: 0 4px;
+		border:none;
+		border-radius: 10px;
+		font-family: "宋体";
+		outline: none;
+	}
+	.send{
+		float: left;
+		width: 50px;
+		height: 40px;
+		background: none;
+		border:none;
+		font-size: 16px;
+		font-weight: bold;
+		color: #d7707f;
+		outline: none;
+	}
+
+
+	/* 对话框 */
+	.chat{
+		width: 260px;
+		height: 410px;
+		background: #fff;
+		font-size: 12px;
+		font-family: '宋体';
+		overflow: auto;
+	}
+	.chat li{
+		position: relative;
+		margin-bottom: 5px;
+		display: block;
+		width: auto;
+		height: 50px;
+		line-height: 30px;
+		word-wrap:break-word;
+		clear: both;
+	}
+
+	.chat img{margin: 5px;}
+
+	.chat .li1 img{float: left;}
+	.chat .li2 img{float: right;}
+
+	.chat span{width: 5px;height: 100%;display: inline-block;}
+	
+	.chat .li1 span{background: url('img/l01.png') center no-repeat;float: left;}
+	.chat .li2 span{background: url('img/r01.png') center no-repeat;float: right;}
+	
+	
+	.chat .li1 p{display: inline-block;background: #dee0e2;padding: 0 10px;max-width: 150px;float:left;}
+	.chat .li2 p{display: inline-block;background: #b2a9c8;padding: 0 10px;margin-left: 10px;float: right;max-width: 150px;}
+
+</style>
+<script type="text/javascript">
+	window.onload = function(){
+		//点击头像切换
+		var oImg = document.getElementById('head');
+		var onOff = true;
+
+		oImg.onclick = function(){
+			if (onOff) {
+				oImg.src = 'img/rico.png';
+			} else{
+				oImg.src = 'img/lico.png';
+			};
+			onOff = !onOff;
+		}
+
+		//在输入框输入内容，点击发送按钮，聊天框打印出所输入的内容
+		var oUl = document.querySelector('.chat');
+		var oText = document.querySelector('.text');
+		var oSend = document.querySelector('.send');
+		var str = null;
+
+		oText.focus();
+
+		function fn1(){
+			oUl.innerHTML = str + oUl.innerHTML;
+			oText.value = '';
+			oText.focus();
+		}
+
+
+		oSend.onclick = function(){
+			var cont = oText.value;
+			
+			if ( cont == '') {
+				alert('输入点内容吧！');
+			}else if( onOff == true){
+
+			str = '<li class="li1"><img src="' + oImg.src + '"><span></span><p>'+cont+'</p></li>';
+				fn1();
+			}else{
+
+			str = '<li class="li2"><img src="' + oImg.src + '"><span></span><p>'+cont+'</p></li>';
+				fn1();
+			};
+		}
+
+	}
+
+</script>
+<body>
+	<div class="phone">
+		<div class="bar"></div>
+		<div class="framework">
+			<ul class="chat"></ul>
+			<img id="head" src="img/lico.png">
+			<input type="text" class="text" />
+			<input type="button" class="send" value="发送" />
+		</div>
+	</div>
+</body>
+</html>
