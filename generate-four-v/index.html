@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	body{
+		margin: 0;
+		padding: 0;
+	}
+	.box{
+		margin: 0 auto;
+		width: 1000px;
+		height: 800px;
+		background: url('bg.png') center no-repeat;
+	}
+	.container{
+		position: absolute;
+		top: 50px;
+		left: 50%;
+		margin-left: -145px;
+		width: 290px;
+		height: 490px;
+		background: url('bg1.png') center no-repeat;
+	}
+	.main{
+		position: relative;
+		top: 70px;
+		left: 20px;
+		width: 250px;
+		height: 250px;
+	}
+	.main div{
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		background-color: #fff;
+		color: #68bcfa;
+		font-weight: bold;
+		text-align: center;
+		line-height: 50px;
+	}
+	.btn{
+		position: absolute;
+		bottom: 30px;
+		left: 50%;
+		margin-left: -58px;
+		width: 116px;
+		height: 38px;
+		outline: none;
+		border: 1px solid #68bcfa;
+		border-radius: 10px;
+		background: #fff;
+		color: #68bcfa;
+		text-align: center;
+		line-height: 38px;
+		cursor: pointer;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oBtn = document.querySelector('.btn');
+		var oMain = document.querySelector('.main');
+		var arrBoxes =oMain.getElementsByTagName('div');
+		var str = '';
+
+		var arrDire = [
+		  ['left','top'],
+		  ['top','right'],
+		  ['right','bottom'],
+		  ['bottom','left']
+		]
+
+		var a = 5;
+		var b = -1;//控制V开口方向
+		var c = a%2;//1
+		var d = (a-c)/2//2 //控制尾部曲折
+
+		for (var i = 0; i < 5; i++) {
+		  str += '<div>' + (i+1) + '</div>';
+		}
+
+		oBtn.onmouseover = function(){
+			oBtn.style.color = '#fff';
+			oBtn.style.backgroundColor = '#68bcfa';
+		}
+
+		oBtn.onmouseout = function(){
+			oBtn.style.color = '#68bcfa';
+			oBtn.style.backgroundColor = '#fff';
+		}
+
+		///length - i - 1(开始的数)
+
+		// 点击生成初始化图像
+		// function init(){
+		// 	for (var i = 0; i < a; i++) {
+		// 		arrBoxes[i].style.left = i*50 + 'px';
+		// 		if ( i > d) {
+		// 			d--;
+		// 			arrBoxes[i].style.top = d*50 + 'px';
+		// 		} else {
+		// 			arrBoxes[i].style.top = i*50 + 'px';
+		// 		}
+		// 	}		
+		// }
+
+		oBtn.onclick = function(){
+			// 点击按钮，生成V字形DIV
+				oBtn.value = '变换';
+
+				oMain.innerHTML = str;
+			
+				if ( b>2 ) {
+					b = 0;
+				} else {
+					b++;
+				}	
+				console.log(b);
+
+				for (var i = 0; i < a; i++) {
+					arrBoxes[i].style[arrDire[b][0]] = i*50 + 'px';
+					if ( i > d) {
+						d--;
+						arrBoxes[i].style[arrDire[b][1]] = d*50 + 'px';
+					} else {
+						arrBoxes[i].style[arrDire[b][1]] = i*50 + 'px';
+					}
+				}
+
+				d=(a-c)/2;
+			}
+	}
+</script>
+<body>
+</head>
+	<div class="box">
+	 <div class="container">
+		<div class="main"></div>
+		<input class="btn" type="button" value="生成" />
+	 </div>
+	</div>
+</body>
+</html>
