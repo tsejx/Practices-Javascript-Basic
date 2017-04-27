@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    body, html {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      overflow: hidden;
+    }
+    .container div {
+      width: 10%;
+      height: 10%;
+      border: 1px solid #fff;
+      box-sizing: border-box;
+      background-image: url(./img/timg.jpg);
+      background-size: 1000% 1000%;
+      /*background: #ccc;*/
+      opacity: 0.5;
+      position: absolute;
+      transition: 200ms;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+  </div>
+  <script>
+    var container = document.querySelector('.container');
+    
+    var str = '';
+    var t = -1;
+    
+    for(var i=0; i<100; i++){
+      if(i % 10 === 0){
+        t++;
+      }
+      str += '<div style="left:'+(i%10 * 10)+'%;top:'+(t*10)+'%;background-position:'+(-i%10 * 100)+'% '+(-t * 100)+'%;"></div>';
+    }
+    
+    container.innerHTML = str;
+    
+    var imgItems = document.querySelectorAll('.container div');
+    
+    for(var i=0, len=imgItems.length; i<len; i++){
+      imgItems[i].first = true;
+      imgItems[i].onmouseover = function (){
+        if(this.first){
+          this.first = false;
+          this.style.opacity = 1;
+        }
+        this.style.transform = 'scale(1.3)';
+        this.style.zIndex = 10;
+      };
+      imgItems[i].onmouseout = function (){
+        this.style.transform = '';
+        this.style.zIndex = '';
+      };
+    }
+    
+    
+    
+  </script>
+</body>
+</html>
