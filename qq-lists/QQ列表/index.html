@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body,
+		ul,
+		li,
+		h2 {
+			margin: 0;
+			padding: 0;
+		}
+		
+		li {
+			list-style: none;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="qq.css" />
+</head>
+
+<body onselectstart="return false;">
+	<div class="wrap">
+		<div class="list">
+			<h2><span></span>我的好友</h2>
+			<ul>
+				<li>小佳Love</li>
+				<li>从来就是这么正经</li>
+				<li>leo是个胖子</li>
+				<li>momo不是陌陌</li>
+			</ul>
+			<h2><span></span>企业好友</h2>
+			<ul>
+				<li>习近平</li>
+				<li>普京</li>
+				<li>奥巴马</li>
+			</ul>
+			<h2><span></span>黑名单</h2>
+			<ul>
+				<li>安倍</li>
+				<li>杜特尔特</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		/**
+		 * 1 点击标题可以切换标题自身和小箭头对应的样式
+		 * 2 点击当前这个让上一个恢复之前的状态
+		 * 3 点击当前的标题让对应的列表显示出来
+		 * 4 子菜单的hover效果
+		 * 5 子菜单的点击效果
+		 */
+		// 所有的标题
+		var captions = document.querySelectorAll('.list h2');
+		// 所有的箭头
+		var allows = document.querySelectorAll('.list h2 span');
+		// 获取对应的所有的菜单
+		var lists = document.querySelectorAll('.list ul');
+		
+		var prevCaption = 0;
+		
+		// for(var i=0, len=captions.length; i<len; i++){
+		// 	// 可以控制自己选中和未被选中的一个变量（状态）
+		// 	captions[i].checked = false;
+		// 	// 用一组标题去控制另外一组其它的元素
+		// 	captions[i].index = i;
+		// 	captions[i].onclick = function (){
+		// 		if(!this.checked){
+		// 			// 清除上一个的样式和选中状态
+		// 			captions[prevCaption].className = '';
+		// 			allows[prevCaption].className = '';
+		// 			captions[prevCaption].checked = false;
+		// 			lists[prevCaption].style.display = '';
+		// 			
+		// 			// 让当前的这个标题添加背景颜色
+		// 			this.className = 'active';
+		// 			// 让当前的这个标题对应的小箭头转动90deg
+		// 			allows[this.index].className = 'active';
+		// 			// 让当前的列表显示出来
+		// 			lists[this.index].style.display = 'block';
+		// 			
+		// 			// 更新上一个
+		// 			prevCaption = this.index;
+		// 		}else{
+		// 			this.className = '';
+		// 			allows[this.index].className = '';
+		// 			lists[this.index].style.display = '';
+		// 		}
+		// 		this.checked = !this.checked;
+		// 	};
+		// }
+		//--------------------------------------------------------
+		
+		for(var i=0, len=captions.length; i<len; i++){
+			// 可以控制自己选中和未被选中的一个变量（状态）
+			// captions[i].checked = false;
+			// 用一组标题去控制另外一组其它的元素
+			captions[i].index = i;
+			captions[i].onclick = function (){
+				if(this.className == ''){
+					// 清除上一个的样式和选中状态
+					captions[prevCaption].className = '';
+					allows[prevCaption].className = '';
+					// captions[prevCaption].checked = false;
+					lists[prevCaption].style.display = '';
+					
+					// 让当前的这个标题添加背景颜色
+					this.className = 'active';
+					// 让当前的这个标题对应的小箭头转动90deg
+					allows[this.index].className = 'active';
+					// 让当前的列表显示出来
+					lists[this.index].style.display = 'block';
+					
+					// 更新上一个
+					prevCaption = this.index;
+				}else{
+					this.className = '';
+					allows[this.index].className = '';
+					lists[this.index].style.display = '';
+				}
+				// this.checked = !this.checked;
+			};
+		}
+		
+		// -------------------------------------------------------
+		// 获取所有的子菜单
+		var listsChildren = document.querySelectorAll('.list ul li');
+		var prevChild = 0;
+		
+		for(var i=0; i<listsChildren.length; i++){
+			listsChildren[i].checked = false;
+			listsChildren[i].index = i;
+			// 鼠标移入时候
+			listsChildren[i].onmouseover = function (){
+				if(!this.checked){
+					this.className = 'active';
+				}
+			};
+			// 鼠标移出时候
+			listsChildren[i].onmouseout = function (){
+				if(!this.checked){
+					this.className = '';
+				}
+			};
+			// 鼠标点击的时候
+			listsChildren[i].onclick = function (){
+				if(!this.checked){
+					// 清空上一个子菜单的选中状态
+					listsChildren[prevChild].className = '';
+					listsChildren[prevChild].checked = false;
+					
+					this.className = 'selected';
+					prevChild = this.index;
+				}else{
+					this.className = '';
+				}
+				this.checked = !this.checked;
+			};
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+body {
+	width: 1000px;
+	height: 800px;
+	background: url(bg.png) no-repeat center center;
+	margin: 0 auto;
+}
+
+.wrap {
+	width: 384px;
+	height: 707px;
+	background: url(bg1.png) no-repeat center center;
+	margin: 0 auto;
+	position: relative;
+}
+
+.list {
+	width: 280px;
+	position: absolute;
+	left: 46px;
+	top: 64px;
+}
+.list h2 {
+	height: 48px;
+	font: 14px/48px arial;
+	color: #fff;
+	background: rgba(0,0,0,.8);
+	box-sizing: border-box;
+	padding-left: 10px;
+	margin-top: 10px;
+}
+.list h2:nth-of-type(1){
+	margin: 0;
+}
+.list h2.active {
+	background: rgba(221,84,111,.8)
+}
+.list span {
+	width: 0;
+	height: 0;
+	display: inline-block;
+	border: 6px dashed rgba(0,0,0,0);
+	border-left: 6px solid rgba(255,255,255,1);
+	margin-right: 10px;
+	position: relative;
+	top: 1px;
+}
+.list span.active {
+	/*width: 0;
+	height: 0;
+	display: inline-block;
+	border: 6px dashed rgba(0,0,0,0);
+	border-top: 6px solid rgba(255,255,255,1);*/	
+	position: relative;
+	top: 4px;
+	transform: rotate(90deg);
+}
+.list ul {
+	background: #000000;
+	color: #fff;
+	display: none;
+}
+.list li {
+	height: 40px;
+	font: 14px/40px "微软雅黑";
+	box-sizing: border-box;
+	padding-left: 34px;
+}
+.list li.active {
+	background: rgba(255,255,255,.4);
+}
+
+.list li.selected {
+	background: rgba(221,84,111,.6);
+}
+
+
+
+
+
+
+
+
+
+
+
+
