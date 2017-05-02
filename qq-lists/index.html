@@ -103,123 +103,123 @@
 		background: #7b2c3a;
 	}
 	</style>
-	<script type="text/javascript">
-	window.onload = function(){
-		// 生成好友组列
-		var oFriendList = document.getElementById('friend-list');
-		// var oFriendGroup = oFriendList.querySelector('friend-group');
-		var arrGroupName = ['我的好友','企业好友','黑名单'];
-		var lenGro = arrGroupName.length;
-		var strGro = '';
+<script type="text/javascript">
+window.onload = function(){
+	// 生成好友组列
+	var oFriendList = document.getElementById('friend-list');
+	// var oFriendGroup = oFriendList.querySelector('friend-group');
+	var arrGroupName = ['我的好友','企业好友','黑名单'];
+	var lenGro = arrGroupName.length;
+	var strGro = '';
 
-		for (var i = 0; i < lenGro; i++) {
-			strGro += '<li class="friend-group"><h2><span></span>' + arrGroupName[i] + '</h2><ul class="friend-items"></ul></li>';
-		}
-		oFriendList.innerHTML  = strGro;
+	for (var i = 0; i < lenGro; i++) {
+		strGro += '<li class="friend-group"><h2><span></span>' + arrGroupName[i] + '</h2><ul class="friend-items"></ul></li>';
+	}
+	oFriendList.innerHTML  = strGro;
 
-		// 获取好友组列表内包含好友们的ul列表
-		// friend-items
-		var arrFriItems = oFriendList.querySelectorAll('.friend-items');
-		// console.log(arrFriItems);
+	// 获取好友组列表内包含好友们的ul列表
+	// friend-items
+	var arrFriItems = oFriendList.querySelectorAll('.friend-items');
+	// console.log(arrFriItems);
 
-		// 生成好友组内的好友们
-		var arrGroupItems =[
-			['盖伦','阿兹尔','黑默丁格'],
-			['马云','李彦宏','刘伟'],
-			['SB刘富炜','林峰']
-		]
-		var lenIte = arrGroupItems.length;
-		var strIte = '';
+	// 生成好友组内的好友们
+	var arrGroupItems =[
+		['盖伦','阿兹尔','黑默丁格'],
+		['马云','李彦宏','刘伟'],
+		['SB刘富炜','林峰']
+	]
+	var lenIte = arrGroupItems.length;
+	var strIte = '';
 
-		// 生成好友们
-		for (var i = 0; i < lenIte; i++) {
-			for (var j = 0; j < arrGroupItems[i].length; j++) {
-			  arrFriItems[i].innerHTML += '<li>'+ arrGroupItems[i][j] +'</li>';
-			}
-		}
-
-		//点击组，组背景颜色改变，显示组内好友列表
-		//生命组名h2所在标签
-		var arrGroName = oFriendList.querySelectorAll('h2');
-		var arrSpans = oFriendList.querySelectorAll('span');
-		var lenGroName = arrGroName.length;
-
-		//设置开关（再次点击任意一个组，上一个组关闭，当前组打开）
-		var prev = 0;
-		var isChecked = false;
-		// console.log(arrGroName);
-		for (var i = 0; i < lenGroName; i++) {
-			arrGroName[i].index = i;
-			arrGroName[i].isChecked = false;
-			arrGroName[i].onclick = function(){
-				if (!this.isChecked) {//未被选中
-
-					//先清空上一组(组名颜色，好友列表显示)
-					// arrGroName[prev].style.backgroundColor = '#000';
-					// arrGroName[prev].style.backgroundImage = 'url('+'./close.png'+')';
-					arrSpans[prev].className = '';
-					arrGroName[prev].className = '';
-					arrFriItems[prev].style.display = 'none';
-
-					//将上一个关闭（紧记！！！）
-					arrGroName[prev].isChecked = false;
-					//组名背景颜色改变
-					// this.style.backgroundImage = 'url('+'./open.png'+')';
-					// this.style.backgroundColor = '#7b2c3a';
-					arrSpans[this.index].className = 'active';
-					arrGroName[this.index].className = 'active';
-					//好友列表显示
-					arrFriItems[this.index].style.display = 'block';
-					//将当前变为下一次的“上一次”
-					prev = this.index;
-				} else {//被选中
-					// this.style.backgroundColor = '#000';
-					// this.style.backgroundImage = 'url('+'./close.png'+')';
-					arrSpans[this.index].className = '';
-					arrGroName[this.index].className = '';
-					arrFriItems[this.index].style.display = 'none';
-				}
-				this.isChecked = !this.isChecked;
-			}
-		}
-
-		//点击好友高亮
-		//friend-item
-		var arrFriItem = document.querySelectorAll('.friend-group li');
-		console.log(arrFriItem);
-		var prevFriItem = 0;
-		var checked = false;
-			
-		for (var i = 0; i < arrFriItem.length; i++) {
-			arrFriItem[i].checked = false;
-			arrFriItem[i].index = i;
-			//鼠标移入的时候
-			arrFriItem[i].onmouseover = function(){
-				  this.className = 'active';
-			}
-			//鼠标移出的时候
-			arrFriItem[i].onmouseout = function(){
-				if ( !this.checked ) {
-				  this.className = '';
-				}
-			}
-			//鼠标点击的时候
-			arrFriItem[i].onclick = function(){
-				if (!this.checked) {
-					//清空上一个子菜单的选中状态
-					arrFriItem[prevFriItem].className = '';
-					arrFriItem[prevFriItem].checked = false;
-					// console.log(1);
-					this.className = 'selected';
-					prevFriItem = this.index;
-				} else {
-				this.className = '';
-				}
-				this.checked = !this.checked;
-			}
+	// 生成好友们
+	for (var i = 0; i < lenIte; i++) {
+		for (var j = 0; j < arrGroupItems[i].length; j++) {
+		  arrFriItems[i].innerHTML += '<li>'+ arrGroupItems[i][j] +'</li>';
 		}
 	}
-	</script>
+
+	//点击组，组背景颜色改变，显示组内好友列表
+	//生命组名h2所在标签
+	var arrGroName = oFriendList.querySelectorAll('h2');
+	var arrSpans = oFriendList.querySelectorAll('span');
+	var lenGroName = arrGroName.length;
+
+	//设置开关（再次点击任意一个组，上一个组关闭，当前组打开）
+	var prev = 0;
+	var isChecked = false;
+	// console.log(arrGroName);
+	for (var i = 0; i < lenGroName; i++) {
+		arrGroName[i].index = i;
+		arrGroName[i].isChecked = false;
+		arrGroName[i].onclick = function(){
+			if (!this.isChecked) {//未被选中
+
+				//先清空上一组(组名颜色，好友列表显示)
+				// arrGroName[prev].style.backgroundColor = '#000';
+				// arrGroName[prev].style.backgroundImage = 'url('+'./close.png'+')';
+				arrSpans[prev].className = '';
+				arrGroName[prev].className = '';
+				arrFriItems[prev].style.display = 'none';
+
+				//将上一个关闭（紧记！！！）
+				arrGroName[prev].isChecked = false;
+				//组名背景颜色改变
+				// this.style.backgroundImage = 'url('+'./open.png'+')';
+				// this.style.backgroundColor = '#7b2c3a';
+				arrSpans[this.index].className = 'active';
+				arrGroName[this.index].className = 'active';
+				//好友列表显示
+				arrFriItems[this.index].style.display = 'block';
+				//将当前变为下一次的“上一次”
+				prev = this.index;
+			} else {//被选中
+				// this.style.backgroundColor = '#000';
+				// this.style.backgroundImage = 'url('+'./close.png'+')';
+				arrSpans[this.index].className = '';
+				arrGroName[this.index].className = '';
+				arrFriItems[this.index].style.display = 'none';
+			}
+			this.isChecked = !this.isChecked;
+		}
+	}
+
+	//点击好友高亮
+	//friend-item
+	var arrFriItem = document.querySelectorAll('.friend-group li');
+	console.log(arrFriItem);
+	var prevFriItem = 0;
+	var checked = false;
+
+	for (var i = 0; i < arrFriItem.length; i++) {
+		arrFriItem[i].checked = false;
+		arrFriItem[i].index = i;
+		//鼠标移入的时候
+		arrFriItem[i].onmouseover = function(){
+			  this.className = 'active';
+		}
+		//鼠标移出的时候
+		arrFriItem[i].onmouseout = function(){
+			if ( !this.checked ) {
+			  this.className = '';
+			}
+		}
+		//鼠标点击的时候
+		arrFriItem[i].onclick = function(){
+			if (!this.checked) {
+				//清空上一个子菜单的选中状态
+				arrFriItem[prevFriItem].className = '';
+				arrFriItem[prevFriItem].checked = false;
+				// console.log(1);
+				this.className = 'selected';
+				prevFriItem = this.index;
+			} else {
+			this.className = '';
+			}
+			this.checked = !this.checked;
+		}
+	}
+}
+</script>
 </head>
 <body>
 	<div class="bg-container">
