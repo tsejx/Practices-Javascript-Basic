@@ -7,7 +7,11 @@ This repository storage my small practice about javascript.
 
 ## alter-div-style 修改div样式
 
+演示页面 请点击 ：[lter-div-style 修改div样式][1]
+
 ## generate-four-v 生成4个v
+
+演示页面 请点击 ： [generate-four-v 生成4个v][2]
 
 ## imitate-phone-chatting 模拟手机短信聊天
 
@@ -16,3 +20,7 @@ This repository storage my small practice about javascript.
 ## wipe-puzzle-picture 图片擦拭悬浮变大
 
 ## qq-lists QQ列表
+
+
+[1]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/alter-div-style/alter-div-style.html
+[2]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/generate-four-v/index.html
