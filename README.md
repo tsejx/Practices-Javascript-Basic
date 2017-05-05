@@ -15,7 +15,11 @@ This repository storage my small practice about javascript.
 
 ## imitate-phone-chatting 模拟手机短信聊天
 
+演示页面 请点击 ： [imitate-phone-chatting 模拟手机短信聊天][3]
+
 ## picture-click-shift 图片点击切换实例
+
+演示页面 请点击 ： [imitate-phone-chatting 模拟手机短信聊天][3]
 
 ## wipe-puzzle-picture 图片擦拭悬浮变大
 
@@ -24,3 +28,5 @@ This repository storage my small practice about javascript.
 
 [1]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/alter-div-style/alter-div-style.html
 [2]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/generate-four-v/index.html
+[3]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/imitate-phone-chatting/index.html
+[4]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/picture-click-shift/index.html
