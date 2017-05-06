@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="slide.css" />
+		<style type="text/css">
+			body{
+				background-color: #ffd800;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="slide">
+			<div class="pic">
+				<img src="ads/1.png" />
+			</div>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<div class="nav">
+				<span>
+					<a href="javascript:;">
+						<img src="ads/1.png"/>
+					</a>
+				</span>
+			</div>
+		</div>
+	</body>
+	<script>
+		var data = ['ads/1.png','ads/2.png','ads/3.png','ads/4.png','ads/5.png'];
+		
+		var len = data.length;
+		
+		// 图片的容器
+		var picContainer = document.querySelector('.pic');
+		// 小原点的容器
+		var navContainer = document.querySelector('.nav');
+		
+		// 生成对应的html结构
+		var str1 = '', str2 = '';
+		for(var i=0; i<len; i++){
+			str1 += '<img src="'+data[i]+'" />';
+			str2 += '<span data-index="'+i+'"><a href="javascript:;"><img src="'+data[i]+'"/></a></span>';
+		}
+		
+		picContainer.innerHTML = str1;
+		navContainer.innerHTML = str2;
+		
+		var slideImgs = document.querySelectorAll('.pic img');
+		var slideNavs = document.querySelectorAll('.nav span');
+		// var showSmallImg = document.querySelectorAll('.nav span a');
+		
+		var current = 0;
+		
+		init();  // 初始化页面显示的图片
+		
+		function init(){
+			for(var i=0; i<len; i++){
+				slideNavs[i].className = '';
+				slideImgs[i].style.opacity = 0;
+			}
+			slideNavs[current].className = 'active';
+			slideImgs[current].style.opacity = 1;
+		}
+		
+		for(var i=0; i<len; i++){
+			slideNavs[i].onclick = function (){
+				current = this.dataset.index;
+				init();
+			};
+			// slideNavs[i].onmouseover = function (){
+			// 	var index = this.dataset.index;
+			// 	showSmallImg[index].style.display = 'block';
+			// };
+			// slideNavs[i].onmouseout = function (){
+			// 	var index = this.dataset.index;
+			// 	showSmallImg[index].style.display = '';
+			// };
+		}
+		
+		// 点击上一张
+		var prevImg = document.querySelector('.prev');
+		
+		prevImg.onclick = function (){
+			current = current > 0 ? --current : len - 1;
+			init();
+		};
+		
+		// 点击下一张
+		var nextImg = document.querySelector('.next');
+		
+		nextImg.onclick = function (){
+			current = current < len - 1 ? ++current : 0;
+			init();
+		};
+	</script>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>京东幻灯片</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.bg-box {		
+			position: absolute;
+			left: 50%;
+			margin-left: -500px;
+			width: 1000px;
+			height: 800px;
+			background: url('imgs/bg.png') no-repeat;
+		}
+		/* 图片组 */
+		.img-box {
+			position: absolute;
+			top:172px;
+			left:300px;
+			width: 530px;
+			height: 350px;
+			border:1px solid #000;
+		}
+		/* 单独图片 */
+		.img-item {
+			position: absolute;
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			transition: 300ms linear;
+		}
+		/* 选中图片 */
+		.img-box .active{
+			opacity: 1;
+		}
+
+		/* 上下翻页 */
+		#prev { 
+			background: url('imgs/prev.png') no-repeat;
+			top:160px;
+			left: 0;
+		}
+		#next {  
+			background: url('imgs/next.png') no-repeat;
+			top:160px;
+			right: 0;
+		}
+		#prev, #next{
+			display: inline-block;
+			position: absolute;
+			margin: 5px;
+			z-index: 10;
+			width: 25px;
+			height: 46px;
+			cursor: pointer;
+			opacity: 0.3
+		}
+		#prev:hover, #next:hover{
+			opacity: 0.7;
+		}
+
+		/* 导航点组 */
+		.page { 
+			position: absolute; 
+			top: 550px;
+			width: 100%;
+			height: 40px;
+			text-align: center;
+		}
+		/* 导航点 */
+		.page .navSpan{
+			display: inline-block;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background-color: #ccc;
+			cursor: pointer;
+			transform: scale(0.3);
+		}
+		.page .active{
+			background: #8CBCF3;
+		}
+		.page img{
+			display: none;
+			position: relative;
+			left: -100px;
+			top: -250px;
+			width: 360px;
+			height: 210px;
+			border: 3px solid #000;
+		}
+
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oPage = document.querySelector('.page');
+		var oImgContainer = document.querySelector('.img-box');
+
+		//获取图片数据
+		var imgData = ['ads/1.png','ads/2.png','ads/3.png','ads/4.png','ads/5.png'];
+		//图片数组长度
+		var len = imgData.length;
+
+		//创建小黑点与显示所有图片
+		var strPage = '';
+		var strImg = '';
+		var cls = '';
+
+		for (var i = 0; i < len; i++) {
+			if ( i === 0 ) {
+				cls = 'active';
+			} else {
+				cls = '';
+			}
+			strPage += '<span class="navSpan '+ cls +'"><img src="'+ imgData[i] +'"/></span>';
+			strImg += '<img class="img-item ' + cls + '" src="'+imgData[i]+'"/>'
+		}
+		oPage.innerHTML = strPage;
+		oImgContainer.innerHTML += strImg;
+		//获取所有img和page
+		
+		var arrImg = oImgContainer.querySelectorAll('img');
+		var arrPage = oPage.querySelectorAll('span');
+
+		//激活小黑点并且可以显示将要跳转的缩略图
+		var arrMiniImg = oPage.querySelectorAll('img');
+
+		var navNum = 0;//上一个
+		for (var i = 0; i < len; i++) {
+			arrPage[i].index = i;
+			arrPage[i].onclick = function(){
+				//清除上一个
+				arrPage[navNum].className = 'navSpan';
+				arrImg[navNum].className = 'img-item';		
+				//当前选中
+				this.className = 'navSpan active';
+				arrImg[this.index].className = 'img-item active';
+				navNum = this.index;
+			}
+			arrPage[i].onmouseover = function(){
+					arrMiniImg[this.index].style.display = 'block';
+			}
+			arrPage[i].onmouseout = function(){
+					arrMiniImg[this.index].style.display = 'none';
+			}
+		}
+
+		// 点击按钮切换上一页、下一页
+		var oPrev = document.getElementById('prev');
+		var oNext = document.getElementById('next');
+
+		var currentNum = 0;//上下切换
+
+		// 点击上一页
+		oPrev.onclick = function(){
+			currentNum = navNum;
+			arrImg[currentNum].className = 'img-item';
+			arrPage[currentNum].className = 'navSpan';
+			// currentNum--;
+			// if (currentNum < 1) {
+			// 	currentNum = 0;
+			// }
+			currentNum > 1?--currentNum:currentNum = 0;
+			arrImg[currentNum].className = 'img-item active';
+			arrPage[currentNum].className = 'navSpan active';
+			navNum = currentNum ;
+		}
+
+		// 点击下一页
+		oNext.onclick = function(){
+			currentNum = navNum;
+			arrImg[currentNum].className = 'img-item';
+			arrPage[currentNum].className = 'navSpan';
+			// currentNum++;
+			// if (currentNum > len -1) {
+			// 	currentNum = len-1;
+			// }
+			currentNum < len-1?++currentNum:currentNum = len-1;
+			arrImg[currentNum].className = 'img-item active';
+			arrPage[currentNum].className = 'navSpan active';
+			navNum = currentNum ;
+		}
+
+	}
+	</script>
+</head>
+<body>
+	<div class="bg-box">
+		<div class="img-box">
+			<span id="prev"></span>
+			<span id="next"></span>
+		</div>
+		<div class="page"></div>
+	</div>
+</body>
+</html>

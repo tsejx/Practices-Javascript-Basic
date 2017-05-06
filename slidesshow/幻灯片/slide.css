@@ -1,0 +1,105 @@
+body {
+	margin: 0 auto;
+	width: 1000px;
+	height: 800px;
+	background: url(imgs/bg.png) no-repeat center center;
+	position: relative;
+	overflow: hidden;
+	/*max-width: 1000px;*/
+}
+.slide {
+	width: 530px;
+	height: 350px;
+	position: absolute;
+	border: 2px solid #000;
+	left: calc(50% - 230px);
+	top: 170px;
+}
+.pic,.pic img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	transition: 400ms;
+}
+.pic img {
+	opacity: 0;
+}
+
+.prev,.next {
+	width: 25px;
+	height: 46px;
+	position: absolute;
+	top: 50%;
+	margin-top: -23px;
+	z-index: 999;
+	opacity: 0.6;
+}
+.prev {
+	left: 2px;
+	background: url(imgs/prev.png) no-repeat center center;
+}
+.next {
+	right: 2px;
+	background: url(imgs/next.png) no-repeat center center;
+}
+.prev:hover,.next:hover {
+	opacity: 1;
+}
+.nav {
+	position: absolute;
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	left: 0;
+	bottom: -70px;
+}
+.nav span {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background: #c9c9c9;
+	border-radius: 50%;
+	transform: scale(.5);
+	position: relative;
+}
+.nav span a {
+	display: block;
+	width: 100%;
+	transform: scale(5);
+	border: 1px solid #000;
+	position: absolute;
+	left: 50%;
+	margin-left: -16px;
+	top: -90px;
+	display: none;
+}
+.nav span a:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	margin-left: -3px;
+	bottom: -6px;
+	width: 0;
+	height: 0;
+	border: 3px dashed rgba(0,0,0,0);
+	border-top: 3px solid #000;
+}
+.nav span a img {
+	width: 100%;
+	display: block;
+}
+.nav span.active {
+	background: #6cd2eb;
+}
+
+.nav span:hover a {
+	display: block;
+}
+
+
+
+
+
+
