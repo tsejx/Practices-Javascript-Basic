@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#list li.even-color {
+				background: rgba(225,86,113,.3);
+			}
+			#list li.hover {
+				background: rgba(225,86,113,.5);
+				color: #fff;
+			}
+			#list li.checked {
+				background: rgba(225,86,113,.8);
+				color: #fff;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="baidu.css" />
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="baidu">
+				<ul id="list">
+					<li>
+						<div></div>
+						<span>泡沫</span>
+						<span>邓紫棋</span>
+					</li>
+					<li>
+						<div></div>
+						<span>说爱你</span>
+						<span>蔡依林</span>
+					</li>
+					<li>
+						<div></div>
+						<span>稻香</span>
+						<span>周杰伦</span>
+					</li>
+					<li>
+						<div></div>
+						<span>我的梦</span>
+						<span>张靓颖</span>
+					</li>
+					<li>
+						<div></div>
+						<span>怎么说我不爱你</span>
+						<span>萧敬腾</span>
+					</li>
+					<li>
+						<div>️</div>
+						<span>无处安放</span>
+						<span>白若溪</span>
+					</li>
+				</ul>
+				<div class="select">
+					<span class="selectAll"><span>全选</span></span>
+					<div class="others">
+						<span><em></em>收藏</span>
+						<span><em></em>添加</span>
+						<span><em></em>删除</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ✔️ -->
+		<script>
+			/**
+			 * 1 隔行变色
+			 * 2 鼠标的hover效果
+			 * 		遇到第一个问题： 隔行变色受到了影响。(使用自定义属性)
+			 */
+			
+			var lists = document.querySelectorAll('#list li');
+			var listsCheckBox = document.querySelectorAll('#list li div');
+			
+			// 全选按钮
+			var selectAll = document.querySelector('.selectAll');
+			var _html = selectAll.innerHTML;
+			var checkedItems = 0;
+			var checkedAll = false;
+			
+			// 让这个全选的innerHTML等下下面这个，证明是全选的
+			// selectAll.innerHTML = '✔️' + _html;
+			
+			var len = lists.length;
+			
+			for(var i=0; i<len; i++){
+				// 数字0在做判断的时候是个false，其它的数字都是true
+				lists[i].cls = lists[i].className = i%2 ? 'even-color' : '';
+				
+				// 添加自定义属性，用来模拟选框
+				lists[i].checked = false;
+				
+				// 添加索引值用来控制其它对应的元素
+				lists[i].index = i;
+				
+				// 鼠标移入的时候
+				lists[i].onmouseover = function (){
+					this.className = this.checked ? 'checked' : 'hover';
+				};
+				// 鼠标移出的时候
+				lists[i].onmouseout = function (){
+					this.className = this.checked ? 'checked' : this.cls;
+				};
+				// 点击选中当前条目
+				lists[i].onclick = function (){
+					// 如果是false那么说明点击的时候要选中就要变成true，否则变为false
+					this.checked = this.checked ? false : true;
+					// 如果此时的checked是true那么就要选中添加背景颜色
+					this.className =  this.checked ? 'checked' : this.cls;
+					// 对应的选框要根据选中的状态与否添加对应的对号
+					listsCheckBox[this.index].innerHTML = this.checked ? '✔️' : '';
+					// 选中一个让当前的checkedItems+1，否则就-1
+					checkedItems = this.checked ? ++checkedItems : --checkedItems;
+					// 如果选中的个数等于len，那么证明全部选手那中了，就给全选打勾
+					// 否则不打勾
+					selectAll.innerHTML = checkedItems === len ? '✔️' + _html : _html;
+				};
+			}
+			
+			selectAll.onclick = function (){
+				checkedAll = checkedAll ? false : true;
+				selectAll.innerHTML = checkedAll ? '✔️' + _html : _html;
+				for(var i=0; i<len; i++){
+					lists[i].className = checkedAll ? 'checked' : lists[i].cls;
+					lists[i].checked = checkedAll ? true : false;
+					listsCheckBox[i].innerHTML = checkedAll ? '✔️' : '';
+					checkedItems = checkedAll ? len : 0;
+				}
+			};
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度音乐</title>
+	<style type="text/css">
+	html,body,ul,li{
+		margin: 0;
+		padding: 0;
+	}
+	ul,li{
+		list-style: none;
+	}
+	.container{
+		position: absolute;
+		left: calc(50% - 382px);
+		width: 764px;
+		height: 100%;
+		background: url('./bg.png') no-repeat;
+	}
+	.music-box{
+		position: absolute;
+		left: calc(50% - 250px);
+		top: calc(50% - 150px);
+		width: 500px;
+		height: 300px;
+		overflow: hidden;
+		border-radius: 2%;
+		background-color: #fff;
+		/* background: url('./logo.png') center no-repeat #fff; */
+		z-index: 10;
+	}
+/* 	.music-box:after{
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		content: '';
+		width: 100%;
+		height: 100%;
+		background: url('./logo.png') center no-repeat;
+		opacity: 0.1;
+		z-index: -10;
+	} */
+	.music-list{
+		position: absolute;
+		top: 20px;
+		width: 100%;
+	}
+	.music-item{
+		position: relative;
+		width: 100% - 20px;
+		height: 35px;
+		background-image: url('./logo.png');
+		background-repeat: no-repeat;
+		/* background-image: transparent	; */
+		/* background-position: 20px 10px; */
+		color: #000;
+		font-size: 14px;
+		font-family: '微软雅黑';
+		line-height: 35px;
+		cursor: default;
+	}
+/* 	.music-item:nth-of-type(2n){
+		background-color: #F1CDCD;
+	} */
+	.music-item:hover{
+		background-color: #de4a63;
+	}
+/* 	.music-item:after{
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		content: '';
+		width: 100%;
+		height: 100%;
+		/* padding-left: 50px; */
+		/* background: #de4a63; */
+		/* color: #000;
+		font-size: 15px;
+		line-height: 35px; */
+		/* opacity: 0.3; */
+
+	/* } */ 
+
+	.music-item label{
+		display: block;
+		position: absolute;
+		width: 100% - 50px;
+		height: 100%;
+		padding-left: 50px;
+		background-image: url('./sel-box.png');
+		background-repeat: no-repeat;
+		background-position: 20px 10px;
+	}
+	.music-item span{
+		float: right;
+		padding-right: 20px;
+	}
+
+	.active{
+		background-color: #de4a63;
+	}
+	.setting{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 45px;
+		background-color: #de4a63;
+	}
+	.setting span{
+		display: inline-block;
+		width: 25%;
+		height: 25px;
+		margin: 0;
+		margin-top: 10px;
+		padding: 0;
+		color: #fff;
+		font-size: 15px;
+		text-align: center;
+		line-height: 25px;
+		cursor: pointer;
+	}
+	.all-in{
+		background: url('./sel-box.png') 20px 5px no-repeat;
+	}
+	.setting .collect{
+		background: url('./1.png') 0 0 no-repeat;
+	}
+	.setting .add{
+		background: url('./1.png') 0 -25px no-repeat;
+	}
+	.setting .delete{
+		background: url('./1.png') 0 -50px no-repeat;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oMusicBox = document.querySelector('.music-box');
+		var oMusicList = oMusicBox.querySelector('.music-list');
+		var arrSongs = [
+		['泡沫','邓紫棋'],
+		['说爱你','蔡依林'],
+		['稻香','周杰伦'],
+		['我的梦','张靓颖'],
+		['怎么说我不爱你','萧敬腾'],
+		['无处安放','白若曦']
+		]
+		var str = '';
+		
+
+		for (var i = 0; i < arrSongs.length; i++) {
+			str += '<li class="music-item" style="background-position:150px '+(-i*35+10)+'px;"><label>' +arrSongs[i][0] +'</label><span>' +arrSongs[i][1]+ '</span></li>';
+			// if ( i%2 === 1 ) {
+			// 	arrMusicItems[i].style.backgroundColor = '#de4a63';
+			// } ;
+			// 
+		}
+		oMusicList.innerHTML = str;
+
+		var arrMusicItems = oMusicList.querySelectorAll('li');
+		// console.log(arrMusicItems);
+
+		//双行背景变色
+		// for (var i = 0; i < arrSongs.length; i++) {
+		// 	if ( i%2 === 1 ) {
+		// 		arrMusicItems[i].className = 'music-item-red';
+		// 	};
+		// }
+
+		// 全选按钮
+		// var oAllIn = document.querySelector('.all-in');
+		// // console.log(oAllIn);
+		// var onAll = false;
+		// oAllIn.onclick = function(){
+		// 	if ( num == lenMusIte) {
+		// 		onAll = true;//全选状态
+		// 	} else {
+		// 		onAll = false;
+		// 	};
+
+		// 	num = 0;
+		// 	if (!onAll) {//未全选
+		// 		for (var i = 0; i < lenMusIte; i++) {
+		// 			arrMusicItems[i].className = 'music-item active';
+		// 			arrMusicItems[i].isChecked = true;
+		// 		}
+		// 		num = lenMusIte;
+		// 		console.log(num);
+		// 	} else {//全选
+		// 		for (var i = 0; i < lenMusIte; i++) {
+		// 			arrMusicItems[i].className = 'music-item';
+		// 			arrMusicItems[i].isChecked = false;
+		// 		}
+		// 		num = 0;
+		// 		console.log(num);
+		// 	}
+		// 	onAll = !onAll;
+		// }
+
+		//鼠标onclick高亮
+		// var num = 0;//控制全选
+		// var isChecked = false;
+		// var lenMusIte = arrMusicItems.length;
+
+		// for (var i = 0; i < lenMusIte; i++) {
+			// arrMusicItems[i].onmouseover = function(){
+			// 	this.style.backgroundColor = '#de4a63';
+			// }
+			// arrMusicItems[i].onmouseout = function(){
+			// 	this.style.backgroundColor = '';
+			// }
+			
+			
+		// 	arrMusicItems[i].index = i;
+		// 	arrMusicItems[i].isChecked = false;
+		// 	arrMusicItems[i].onclick = function(){
+		// 		if ( onAll) {
+		// 			this.isChecked = true;
+		// 		};
+		// 		// if ( num == 0) { onAll = false;};
+
+		// 		if ( !this.isChecked) {//未被选中
+		// 		  this.className = 'music-item active';
+		// 		  num++;
+		// 		  console.log(num);
+		// 		} else {//被选中
+		// 			this.className = 'music-item';
+		// 			if ( num > 0) {
+		// 			  num--;
+		// 			} else {
+		// 				num = 0;
+		// 			}
+		// 			if ( num == lenMusIte ) { onAllIn = true};
+		// 			console.log(num);
+		// 		}
+		// 		this.isChecked = !this.isChecked;
+		// 	}
+		// }
+			
+		// 重新做一次
+		var onAll = false;//全选框开关
+		var onSin = false;//单选框开关
+		var num = 0;//被选中歌曲的数量
+		var lenMusIte = arrMusicItems.length;//歌曲列表长度
+		var oAllIn = document.querySelector('.all-in');//全选按钮
+		var arrLabel = document.querySelectorAll('label');//所有歌曲
+
+
+		//点击单选框开关
+		for (var i = 0; i < lenMusIte; i++) {
+			arrMusicItems[i].onSin = false;
+			arrMusicItems[i].index = i;
+			arrMusicItems[i].onclick = function(){
+				if ( !this.onSin) {//未被选中，要打开
+					this.className = 'music-item active';
+					arrLabel[this.index].style.backgroundImage = 'url('+'./sel-box2.png'+')';
+					num++;
+						if ( num == lenMusIte ) {
+							oAllIn.style.backgroundImage = 'url('+'./sel-box2.png'+')';
+						} else {
+							oAllIn.style.backgroundImage = 'url('+'./sel-box.png'+')';
+						}
+					console.log(num);
+				} else {//被选中，要关闭
+					this.className = 'music-item';
+					arrLabel[this.index].style.backgroundImage = 'url('+'./sel-box.png'+')';
+					num--;
+						if ( num < lenMusIte ) {
+								oAllIn.style.backgroundImage = 'url('+'./sel-box.png'+')';
+							} else {
+								oAllIn.style.backgroundImage = 'url('+'./sel-box2.png'+')';
+							}
+					console.log(num);
+				}
+				this.onSin = !this.onSin;
+			}
+		}
+
+		oAllIn.onclick = function(){
+			if ( num === lenMusIte ) {//关闭全选
+				for (var i = 0; i < lenMusIte; i++) {
+					arrMusicItems[i].onSin = false;
+					arrMusicItems[i].className = 'music-item';
+					arrLabel[i].style.backgroundImage = 'url('+'./sel-box.png'+')';
+					num = 0;
+				}
+				this.style.backgroundImage = 'url('+'./sel-box.png'+')';
+			} else {
+				for (var i = 0; i < lenMusIte; i++) {
+					arrMusicItems[i].onSin = true;
+					arrMusicItems[i].className = 'music-item active';
+					arrLabel[i].style.backgroundImage = 'url('+'./sel-box2.png'+')';
+					num = lenMusIte;
+				}
+				this.style.backgroundImage = 'url('+'./sel-box2.png'+')';
+			}
+			console.log(num);
+		}
+
+
+
+	}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="music-box">
+		  <ul class="music-list">
+		  <!-- <li>123</li>
+				<li class="music-item">456</li>
+				<li class="music-item">789</li> -->
+		  </ul>
+		  <div class="setting">
+			  <span class="all-in">全选</span><span class="collect">收藏</span><span class="add">添加</span><span class="delete">删除</span>
+		  </div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+.wrap {
+	width: 764px;
+	height: 800px;
+	margin: 0 auto;
+	position: relative;
+	background: url(bg.png) no-repeat center center;
+	overflow: hidden;
+}
+
+.baidu {
+	width: 480px;
+	height: 300px;
+	background: #fff url(logo.png) no-repeat center center;
+	margin: 100px auto;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px rgba(0,0,0,.3);
+}
+
+#list {
+	width: 100%;
+	background: rgba(255,255,255,.9);
+	border-radius: 5px;
+	padding: 19px 0;
+}
+#list li {
+	height: 36px;
+	padding: 0 30px;
+	box-sizing: border-box;
+	color: #000000;
+}
+#list li div,.select .selectAll {
+	float: left;
+	width: 12px;
+	height: 12px;
+	border: 1px solid #cacaca;
+	position: relative;
+	top: 11px;
+	margin-right: 20px;
+	font: 14px/12px arial;
+	cursor: pointer;
+}
+#list li span {
+	height: 100%;
+	font: 14px/36px "微软雅黑";
+}
+#list li span:nth-of-type(1) {
+	float: left;
+}
+#list li span:nth-of-type(2) {
+	float: right;
+}
+.select {
+	width: 100%;
+	height: 46px;
+	background: #e15671;
+	box-sizing: border-box;
+	padding: 0 30px;
+	font: 14px/46px "微软雅黑";
+	color: #eee;
+	border-radius: 0 0 5px 5px;
+}
+
+.select .selectAll {
+	top: 16px;
+	position: relative;
+}
+.select .selectAll span {
+	position: absolute;
+	top: 0px;
+	right: -48px;
+	cursor: pointer;
+}
+.select .selectAll:hover {
+	color: #fff;
+}
+.select div {
+	float: right;
+	height: 100%;
+	width: 300px;
+}
+.select div span {
+	display: inline-block;
+	height: 100%;
+	margin-right: 42px;
+}
+.select div span:nth-child(3) {
+	margin: 0;
+}
+.select div span em {
+	display: inline-block;
+	width: 24px;
+	height: 20px;
+	background: url(1.png) no-repeat;
+	margin-right: 10px;
+	position: relative;
+	top: 5px;
+}
+.select div span:nth-of-type(1) em {
+	background-position: 0 0;
+}
+.select div span:nth-of-type(2) em {
+	background-position: 0 -21px;
+	height: 24px;
+	top: 6px;
+}
+.select div span:nth-of-type(3) em {
+	background-position: 0 -46px;
+	height: 24px;
+}
+
+
+
+
