@@ -19,14 +19,23 @@ This repository storage my small practice about javascript.
 
 ## picture-click-shift 图片点击切换实例
 
-演示页面 请点击 ： [imitate-phone-chatting 模拟手机短信聊天][3]
+演示页面 请点击 ： [imitate-phone-chatting 模拟手机短信聊天][4]
 
 ## wipe-puzzle-picture 图片擦拭悬浮变大
 
+演示页面 请点击 ： [wipe-puzzle-picture 图片擦拭悬浮变大][5]
+
 ## qq-lists QQ列表
 
+演示页面 请点击 ： [qq-lists QQ列表][6]
+
+## music-list 音乐列表
+
+## slidesshow-thumbnails 带悬浮显示缩略图的幻灯片
 
 [1]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/alter-div-style/alter-div-style.html
 [2]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/generate-four-v/index.html
 [3]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/imitate-phone-chatting/index.html
 [4]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/picture-click-shift/index.html
+[5]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/wipe-puzzle-picture/index.html
+[6]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/qq-lists/index.html
