@@ -31,7 +31,11 @@ This repository storage my small practice about javascript.
 
 ## music-list 音乐列表
 
+演示页面 请点击 ： [music-list 音乐列表][7]
+
 ## slidesshow-thumbnails 带悬浮显示缩略图的幻灯片
+
+演示页面 请点击 ： [slidesshow-thumbnails 带悬浮显示缩略图的幻灯片][8]
 
 [1]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/alter-div-style/alter-div-style.html
 [2]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/generate-four-v/index.html
@@ -39,3 +43,4 @@ This repository storage my small practice about javascript.
 [4]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/picture-click-shift/index.html
 [5]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/wipe-puzzle-picture/index.html
 [6]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/qq-lists/index.html
+[7]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/slidesshow/index.html
