@@ -43,4 +43,6 @@ This repository storage my small practice about javascript.
 [4]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/picture-click-shift/index.html
 [5]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/wipe-puzzle-picture/index.html
 [6]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/qq-lists/index.html
-[7]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/slidesshow/index.html
+[7]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/music-list/index.html
+[8]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/slidesshow/index.html
+
