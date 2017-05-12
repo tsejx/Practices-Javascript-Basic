@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Game_main</title>
+<link rel="stylesheet" href="style/Game_main.css">
+</head>
+<body>
+<div id="wrap">
+	<div class="head">
+		<div id="log"></div>
+		<h3 class="title">你的鼠标有多快?</h3>
+		<p class="explain">游戏说明：“点击游戏”，随机掉下表情点中它，千万别让它掉下去！！</p>
+	</div>
+	<div class="content">
+		<div class="game-wrap">
+		  <!-- <div class="monster"></div> -->
+		</div>
+		<div class="win">
+			<span class="winNum">0分</span>
+			<p>得分</p>
+		</div>
+		<div class="lose">
+			<span class="loseNum">0分</span>
+			<p>失分</p>
+		</div>
+		<a href="javascript:;" class="btn">开始游戏</a>
+	</div>
+</div>
+<script src="js/xjxtool.js"></script>
+<script>
+
+	//展示框，得分，失分。开始游戏按钮
+	var oContent = xjx.$('.content'),oWinBox = xjx.$('.win'),oLoseBox = xjx.$('.lose'),oStartBtn = xjx.$('.btn'),oGameWrap = xjx.$('.game-wrap');
+	// console.log(oWinNum);
+
+	//怪物图片地址
+	var arrMonsterImg = ['img/demonI.png','img/demonII.png','img/demonIII.png','img/demonIV.png','img/demonV.png','img/demonVI.png']
+
+	//得分分数
+	var winpoint = losepoint = 0;
+
+	//怪物位置随机生成
+	var arrPostion = [0,xjx.css(oGameWrap,'width') - 70]
+	//怪物图案随机生成
+	var arrImgNum = [0,4];
+	var timer;
+
+	//初始化形态
+	function init(){
+		xjx.css(oWinBox,{left:14});
+		xjx.css(oLoseBox,{left:14});
+		xjx.css(oStartBtn,{bottom:20,opacity:1});
+		winpoint = losepoint = 0;
+		xjx.html(xjx.$('.win span'),winpoint + '分');
+		xjx.html(xjx.$('.lose span'),losepoint + '分');
+	}
+
+	oStartBtn.onclick = function(){
+		xjx.animate(oWinBox,{left:-94});
+		xjx.animate(oLoseBox,{left:-94});
+		xjx.animate(oStartBtn,{bottom:-30,opacity:0});
+		createMonster();
+	}		
+
+	//随机生成数字
+	function randomNum(arr){
+    var max = Math.max(...arr),min = Math.min(...arr);
+    return Math.round(Math.random() * (max - min) + min);
+	}
+
+	function createMonster(){
+		clearTimeout(timer);
+		xjx.html(oGameWrap,`<div class="monster"></div>`);
+
+		var monster = xjx.$('.monster');
+		monster.style.backgroundImage = `url(${arrMonsterImg[randomNum(arrImgNum)]})`;
+		xjx.css(monster,{left:randomNum(arrPostion)});
+
+		//自动下滑
+		xjx.animate(monster,{top:xjx.css(oGameWrap,'height')},2000,fnDisppear)
+
+		//怪物到底部消失
+		function fnDisppear(){
+			xjx.css(monster,{display:'none'});
+			losepoint++;
+			if (losepoint === 3) {
+				cancelAnimationFrame(monster.animate);
+				init();
+				return;
+			}
+			xjx.html(xjx.$('.lose span'),losepoint + '分');
+			xjx.shake(oContent,'translateY',10,createMonster);
+		}
+
+		var isChecked = false;
+		monster.isChecked = false;
+		//点击怪物震动消失，加分
+		monster.onclick = function(){
+			cancelAnimationFrame(monster.animate);
+			//避免重复点击重复加分
+			if (monster.isChecked) {
+				return;
+			}
+			monster.isChecked = true;
+			//更改怪物图案
+			monster.style.backgroundImage = `url(${arrMonsterImg[5]})`;
+			//得分
+			winpoint++;
+			xjx.html(xjx.$('.win span'),winpoint + '分');
+			//到达分数任务过关
+			if (winpoint === 30) {
+        cancelAnimationFrame(monster.animate);
+        init();
+        xjx.css(monster,{display:'none'});
+        alert("成功过关");
+				return;
+			}
+				xjx.shake(monster,'translateX',10,createMonster);
+		}
+	}
+	
+</script>
+</body>
+</html>
+
+<!-- 
+需求:
+1,点击开始btn,游戏开始
+2,表情随机往下落  Math.ceil()向上取整,Math.random()随机数,setInterval(),clearInterval(),
+3,点击表情左右抖动消失得分+1/没点中下落后窗口上下抖动失分+1,失分积满10分则游戏失败!!!
+ -->
