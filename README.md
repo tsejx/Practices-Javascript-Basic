@@ -45,6 +45,14 @@ This repository storage my small practice about javascript.
 
 演示页面 请点击 ： [clock 简易时钟][10]
 
+## Infinity-menu 无限级菜单
+
+演示页面 请点击 ： [Infinity-menu 无限级菜单][11]
+
+## mini-game-eliminate-emoji 消除表情小游戏
+
+演示页面 请点击 ： [mini-game-eliminate-emoji 消除表情小游戏][12]
+
 [1]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/alter-div-style/alter-div-style.html
 [2]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/generate-four-v/index.html
 [3]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/imitate-phone-chatting/index.html
@@ -55,3 +63,5 @@ This repository storage my small practice about javascript.
 [8]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/slidesshow/index.html
 [9]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/picture-clock/index.html
 [10]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/clock/index.html
+[11]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/Infinity-menu/index.html
+[12]: http://htmlpreview.github.io/?https://github.com/tsejx/my-javascript-practice/blob/master/mini-game-eliminate-emoji/index.html
