@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="price.css" />
+	</head>
+
+	<body onselectstart="return false;">
+		<div class="wrap">
+			<div class="box">
+				<ul class="list">
+<!-- 					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价（元）：<strong>12.5 </strong> 小计：<strong>0</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价（元）：<strong>10.5 </strong> 小计：<strong>0</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价（元）：<strong>8.5 </strong> 小计：<strong>0</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价（元）：<strong>8 </strong> 小计：<strong>0</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价（元）：<strong>14.5 </strong> 小计：<strong>0</strong>
+						</span>
+					</li> -->
+				</ul>
+				<div class="info">
+					<span>商品合计：<em>0</em>件</span>
+					<span>共花费了：<em>0</em>元</span>
+					<br />
+					<br />
+					<span>其中最贵的商品单价是：<em>0</em>元</span>
+				</div>
+			</div>
+		</div>
+		<script src="./xjx.js"></script>
+
+		<!-- <script>
+			var arrLi = $('.list li');//li数组
+			var	oAmountTotal = $('.info em')[0];//总数量的值
+			var oPriceTotal = $('.info em')[1];//总价格的值
+			var oExpensive = $('.info em')[2];//最贵商品单价
+
+			for (var i = 0; i < arrLi.length; i++) {
+				var ele = arrLi[i]//ele
+				var amount = arrLi[i].querySelector('em');//amount单项数量
+				var price = arrLi[i].querySelectorAll('strong')[0];//price单项
+				var total = arrLi[i].querySelectorAll('strong')[1];//total
+				fnAddSub(ele,amount,price,total);
+			}
+
+			//点击增加和减少
+			function fnAddSub(ele,amount,price,total){
+				//单项的数量
+				var numSingle = 0;
+
+				//数量减少按钮
+				ele.querySelectorAll('i')[0].onclick = function (){
+					numSingle--;
+					if (numSingle<0) {
+						numSingle = 0;
+						fnMax();
+					}else{
+						fnChange(amount,price,total,numSingle);
+						oAmountTotal.innerHTML = parseInt(oAmountTotal.innerHTML) - 1;
+						oPriceTotal.innerHTML = parseFloat(oPriceTotal.innerHTML) - parseFloat(price.innerHTML);
+						fnMax();
+					}
+				}
+
+				//数量增加按钮
+				ele.querySelectorAll('i')[1].onclick = function (){
+					numSingle++;
+					fnChange(amount,price,total,numSingle);
+					oAmountTotal.innerHTML = parseInt(oAmountTotal.innerHTML) + 1;//++oAmountTotal.innerHTML隐式类型转换
+					oPriceTotal.innerHTML = parseFloat(oPriceTotal.innerHTML) + parseFloat(price.innerHTML);
+					fnMax();
+				}
+			}
+
+			//改变单项数量和单项总价
+			function fnChange(amount,price,total,numSingle){
+					amount.innerHTML = numSingle;
+					total.innerHTML = numSingle * price.innerHTML;
+			};
+
+			//取得最大值
+			function fnMax(){
+					var max = -Infinity;
+					for (var i = 0; i < arrLi.length; i++) {
+						//每项单价获取
+						var priceAll = parseFloat(arrLi[i].querySelectorAll('strong')[0].innerHTML);
+						//每项件数
+						var amountAll =parseFloat(arrLi[i].querySelector('em').innerHTML);
+						// console.log(priceAll);
+						// console.log(amountA);
+						if (amountAll != 0 && priceAll > max ) {
+							max = priceAll;
+							// console.log(priceAll);
+							var preMax = max;	
+						}
+					}
+					max = max == -Infinity?0:max;
+					oExpensive.innerHTML = max;
+			}
+		</script> -->
+		<script>
+			//mvc 生成页面数据
+			var arrData = [
+				{
+					id : 1,
+					num : 0,
+					pre : 12.5,
+					total : 0,
+				},
+				{
+					id : 2,
+					num : 0,
+					pre : 10.5,
+					total : 0,
+				},
+				{
+					id : 3,
+					num : 0,
+					pre : 8.5,
+					total : 0,
+				},
+				{
+					id : 4,
+					num : 0,
+					pre : 8,
+					total : 0,
+				},
+				{
+					id : 5,
+					num : 0,
+					pre : 14.5,
+					total : 0,
+				}
+			]
+			//声明项目列表
+			var oList = $('.list');
+			//所有项目统计情况
+			var arrTotal = $('.info em');
+
+			//输入每一项目HTML
+			var str = '';
+			for (var i = 0; i < arrData.length; i++) {
+				str += `<li>
+									<i></i>
+									<em>0</em>
+									<i></i>
+									<span>
+										单价（元）：<strong>${arrData[i].pre}</strong> 小计：<strong>0</strong>
+									</span>
+								</li>`;
+			}
+			oList.innerHTML = str;
+
+			//获取列表中每一项目
+			var arrLi = oList.querySelectorAll('li');
+
+			for (var i = 0; i < arrLi.length; i++) {
+				show(i);
+			}
+
+			function show(i){
+				//减少
+				var sub = arrLi[i].querySelector('i:nth-of-type(1)');
+				//增加
+				var add = arrLi[i].querySelector('i:nth-of-type(2)');
+				//件数
+				var numSingle = arrLi[i].querySelector('em');
+				//单价
+				var pre = arrLi[i].querySelector('strong:nth-of-type(1)');
+				//小计
+				var totalSingle = arrLi[i].querySelector('strong:nth-of-type(2)');
+
+				//减少一个
+				sub.onclick = function(){
+					numSingle.innerHTML = arrData[i].num = numSingle.innerHTML >0?--numSingle.innerHTML:0;
+					totalSingle.innerHTML = arrData[i].total = numSingle.innerHTML * pre.innerHTML;
+					count();
+				}
+
+				//增加一个
+				add.onclick = function(){
+					numSingle.innerHTML = arrData[i].num = ++numSingle.innerHTML ;//隐式类型转换
+					totalSingle.innerHTML = arrData[i].total = numSingle.innerHTML * pre.innerHTML;
+					count();
+				}
+			}
+
+			//统计情况
+			function count(){
+				var arr = [0, 0, 0]
+				for (var i = 0; i < arrData.length; i++) {
+					arr[0] += arrData[i].num; 
+					arr[1] += arrData[i].total;
+					//如果单项数目为零不比较，
+					//运用了0为false正数为true的特性
+					if ( arrData[i].num && arr[2] < arrData[i].pre) {
+						arr[2] = arrData[i].pre;
+					}
+				}
+				for (var i = 0; i < arr.length; i++) {
+					arrTotal[i].innerHTML = arr[i];
+				}
+			}
+		</script>
+	</body>
+
+</html>
