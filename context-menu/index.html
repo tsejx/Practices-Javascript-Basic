@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标右键菜单</title>
+  <style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  ul,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .list {
+    display: flex;
+    position: absolute;
+    width: 160px;
+    height: auto;
+    background-color: #fff;
+    color: #000;
+    font-size: 16px;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    /* display: none; */
+    opacity: 0;
+    transition: opacity 300ms;
+    box-shadow: 2px 2px 5px #333;
+  }
+  .list li { 
+    width: 100%;
+    height: 28px;
+    text-align: center;
+    line-height: 24px;
+    cursor: default;
+  }
+  .list li.active {
+    background-color: #ccc;
+  }
+
+  </style>
+</head>
+<body>
+	<ul class="list">
+    <li>查看</li>
+    <li>排序方式</li>
+    <li>刷新</li>
+    <li>粘贴</li>
+    <li>粘贴快捷方式</li>
+    <li>重命名</li>
+    <li>新建</li>
+    <li>个性化</li>
+  </ul>
+  <script>
+    var menu = document.querySelector('.list');
+
+    document.oncontextmenu = function(e) {
+
+      e.preventDefault();
+
+      var x = e.pageX,
+        y = e.pageY,
+        l, t;
+
+      menu.style.opacity = '1';
+
+      if (window.innerWidth - menu.offsetWidth < x) {
+        l = window.innerWidth - menu.offsetWidth;
+        console.log(1);
+      } else {
+        l = x;
+        console.log(2);
+      };
+
+      if (window.innerHeight - menu.offsetHeight < y) {
+        t = window.innerHeight - menu.offsetHeight;
+      } else {
+        t = y;
+      };
+
+      menu.style.left = l + 'px';
+      menu.style.top = t + 'px';
+
+    }
+
+    document.onclick = function() {
+
+
+      menu.style.opacity = '0';
+    }
+
+    var itemList = document.querySelectorAll('li');
+
+    itemList.forEach(function(item) {
+      item.onmouseover = function() {
+        this.classList.add('active');
+      }
+      item.onmouseout = function() {
+        this.classList.remove('active');
+      }
+    })
+  </script>
+</body>
+</html>
