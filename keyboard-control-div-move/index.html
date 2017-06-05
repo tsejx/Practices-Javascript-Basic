@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘上下左右控制div自由移动</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: skyblue;
+    }
+  </style>
+</head>
+<script src="xjxtool.js"></script>
+<body>
+  <div class="box"></div>
+	<script>
+    var box = document.querySelector('.box');
+
+    box.top = box.right = box.bottom = box.left = false;
+
+
+    (function fn() {
+      window.requestAnimationFrame(fn, box);
+      if (box.left) {
+        xjx.css(box, 'left', box.offsetLeft - 10);
+      } else if (box.top) {
+        xjx.css(box, 'top', box.offsetTop - 10);
+      } else if (box.right) {
+        xjx.css(box, 'left', box.offsetLeft + 10);
+      } else if (box.bottom) {
+        xjx.css(box, 'top', box.offsetTop + 10);
+      }
+    })();
+
+    // 解决连续按的时候卡顿
+
+    window.onkeydown = function(e) {
+      window.cancelAnimationFrame(box.animate);
+      var keyCode = e.keyCode;
+      switch (keyCode) {
+        case 37:
+          box.left = true;
+          break;
+        case 38:
+          box.top = true;
+          break;
+        case 39:
+          box.right = true;
+          break;
+        case 40:
+          box.bottom = true;
+          break;
+      }
+    }
+
+    window.onkeyup = function(e) {
+      var keyCode = e.keyCode;
+      switch (keyCode) {
+        case 37:
+          box.left = false;
+          break;
+        case 38:
+          box.top = false;
+          break;
+        case 39:
+          box.right = false;
+          break;
+        case 40:
+          box.bottom = false;
+          break;
+      }
+    }
+  </script>
+</body>
+</html>
