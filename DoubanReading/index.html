@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DoubanReading</title>
+	<style type="text/css">
+    body {
+    	margin: 0;
+    	padding: 0;
+    	background-color: #f6f6f6;
+    }
+		h2 {
+			margin: 0;
+			padding: 0;
+		}
+
+    .wrap {
+    	position: relative;
+    	width: 360px;
+    	height: 600px;
+    	margin: 20px auto;
+    	box-shadow: 2px 3px 6px rgba(0, 0, 0, .5);
+    	border-radius: 10px;
+    	background-color: rgba(39, 174, 96,1.0);
+    }
+		
+		.search-bar {
+			display: flex;
+			margin: 10px;
+			padding: 10px;
+			justify-content: center;
+			align-items: center;
+		}
+    .search {
+    	width: 200px;
+    	height: 30px;
+    }
+    .button {
+    	width: 80px;
+    	height: 30px;
+    }
+
+    .container {
+    	width: 100%;
+    	height: auto;
+    }
+    .search-info {
+    	height: 40px;
+    	padding-right: 5px;
+    	font-size: 14px;
+    	text-align: center;
+    	line-height: 40px;
+    }
+    .search-result{
+			height: auto;
+    }
+
+    .pagees{
+    	width: 100%;
+    	height: 40px;
+    }
+
+    .search-item {
+    	width: 100%;
+    	height: 200px;
+    	margin: 10px 0;
+    	border-bottom: 1px dashed skyblue;
+    }
+    .search-item-img {
+    	float: left;
+    	width: 105px;
+    	height: 140px;
+    	padding: 30px;
+    }
+    .search-item span {
+    	display: inline-block;
+    }
+    .search-item-title {
+    	float: left;
+    	width:160px;
+    	height: 30px;
+    	font-size: 16px;
+    	font-weight: bold;
+    	line-height: 30px;
+    	text-overflow:ellipsis;
+      white-space:nowrap;
+      overflow:hidden;
+    }
+    .search-item-sub-titile {
+    	float: left;
+			width: 160px;
+			height: 18px;
+			font-size: 12px;
+    	line-height: 18px;
+    	overflow: hidden;
+    	white-space: nowrap;
+      text-overflow:ellipsis;
+    }
+    .search-item-descirption {
+    	float: left;
+    	display: block;
+    	width: 180px;
+    	height: 110px;
+    	margin: 0;
+    	padding: 5px;
+    	font-size: 12px;
+    	white-space:normal;  
+      overflow: hidden;
+      text-overflow:ellipsis;
+    }
+
+    .pages {
+    	display: flex;
+    	justify-content: center;
+    	align-items: center;
+    }
+    .pages a {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin: 0 5px;
+      color: black;
+      font-size: 14px;
+      text-align: center;
+      text-decoration: none;
+      
+    }
+    .pages a.active{
+      font-weight: bold;
+      color: red;
+    }
+
+
+
+	</style>
+</head>
+<body>
+	<div class="wrap">
+	  <form class="search-bar" id="search-bar" >
+			<input class="search" id="search" type="search" name="search" placeholder="搜索图书">
+			<input class="button" id="button" type="button" name="button" value="搜索">
+	  </form>
+	  <div class="container">
+	  	<div class="search-info">共搜索到<span></span>条,共<span></span>页,当前第<span></span>页</div>
+	  	<div class="search-result">
+		
+			<!-- <div class="search-item">
+				<img class="search-item-img" src="">
+				<span class="search-item-title">11111</span>
+				<span class="search-item-sub-titile">22222</span>
+				<p class="search-item-descirption">5465456</p>
+			</div>-->
+	
+	  	</div>
+	  	<div class="pages"></div>
+	  </div>
+	</div>
+
+	<script src="./fectch.js"></script>
+	<script>
+	
+		let button = document.getElementById('button');
+		let search = document.getElementById('search');	
+
+    let searchData,totalPage,totalData,currentData,currentPage = 0;
+
+    let pages = document.querySelector('.pages');
+    let searchResult = document.querySelector('.search-result'); 
+
+		button.onclick = function(){
+			if (search.value.trim() === '') {
+				alert('请输入要搜索的书籍名称！');
+				search.focus();
+				return;
+			}
+  		fetch({
+          type: 'jsonp',
+          url: `https://api.douban.com/v2/book/search?q=${search.value}`,
+          data:{
+            "count":100
+          },
+          timeout: 3000,
+          cb: 'callback'
+      })
+      .init()
+      .then((data)=>{
+        currentPage = 0;
+        searchData = data.books;
+        totalData = data.count;
+        totalPage = Math.ceil(data.count/2);
+        searchInit(data);
+          
+      })
+	  }
+
+    function searchInit(data){
+
+      searchInfo(data);
+      searchResult.innerHTML = createBooks(searchData,currentPage);
+      pages.innerHTML = createPages(searchData,currentPage);
+    }
+
+    // 搜索信息
+    function searchInfo(){
+      let spans = document.querySelectorAll('.search-info span');
+  
+      spans[0].innerHTML = totalData;
+      spans[1].innerHTML = totalPage;
+      spans[2].innerHTML = currentPage+1;
+    }
+      
+
+    pages.addEventListener('click',function(e){
+      let target = e.target;
+      if (target.nodeName === 'A') {
+        currentPage = target.dataset.index * 1;
+        searchResult.innerHTML = createBooks(searchData,currentPage);
+        pages.innerHTML = createPages(searchData,currentPage);
+        searchInfo();
+      }
+    })
+
+    // 图书信息 根据页码生成
+    
+    function createBooks(data,currentPage){
+
+      let str = '';
+
+      for (var i = currentPage*2; i < (currentPage+1)*2; i++) {
+        if (typeof data[i] === 'undefined')break;
+        str += `<div class="search-item">
+          <img class="search-item-img" src="${data[i].image}">
+          <span class="search-item-title">${data[i].title}</span>
+          <span class="search-item-sub-titile">${data[i].author}  ${'/ ' + data[i].publisher}</span>
+          <p class="search-item-descirption">${data[i].summary?data[i].summary:'暂无简介'}</p>
+        </div>`
+      }
+
+      return str;
+    }
+    
+    // 页码
+    function createPages(data,currentPage){
+      let str = '';
+      str = `<a class="prev" href="javascript:;" data-index=${currentPage -1 < 0 ?currentPage:currentPage - 1}><<</a>`;
+
+      if (!currentPage || !(currentPage-1) || !(currentPage-2) ) {
+        for (var i = 0; i < 5; i++) {
+          str += `<a class="${i == currentPage?'active':''}" href="javascript:;" data-index=${i}>${i+1}</a>`;
+        }
+      }else if((currentPage + 3) >= totalPage){
+        for (var i = totalPage-5; i < totalPage; i++) {
+          str += `<a class="${i == currentPage?'active':''}" href="javascript:;" data-index=${i}>${i+1}</a>`;
+        }
+
+      }else{
+        for (var i = currentPage-2; i < currentPage+3; i++) {
+          str += `<a class="${i == currentPage?'active':''}" href="javascript:;" data-index=${i}>${i+1}</a>`;
+        }
+      }
+
+
+      str += `<a class="next" href="javascript:;" data-index=${currentPage +1 >= totalPage ?currentPage:currentPage + 1}>>></a>`;
+
+      return str;
+    }
+
+	</script>
+</body>
+</html>
