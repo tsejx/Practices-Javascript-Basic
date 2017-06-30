@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    .wrap {
+      width: 1000px;
+      height: 600px;
+      border: 1px solid #000;
+      display: flex;
+      flex-direction: column;
+    }
+    .btns {
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #000;
+    }
+    .btns button {
+      width: 120px;
+      height: 40px;
+      margin: 0 20px;
+    }
+    .box {
+      flex: 1;
+      width: 100%;
+      position: relative;
+    }
+    .box div {
+      width: 230px;
+      height: 230px;
+      margin-left: 12px;
+      margin-top: 22px;
+      border: 2px solid rgba(0, 0, 0, 0);
+      float: left;
+      text-align: center;
+      font: 100px/240px Arial;
+      /*position: absolute;*/
+    }
+    .box div:hover {
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="btns">
+      <button>随机打乱</button>
+      <button>从大到小</button>
+    </div>
+    <div class="box">
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+      <div>6</div>
+      <div>7</div>
+      <div>8</div>
+    </div>
+  </div>
+  <script src="./tool.js"></script>
+  <script>
+    var divs = document.querySelectorAll('.box div');
+    
+    var offsetData = [], i, item, len = divs.length, zIndex = 0;
+    
+    for(i=0; item=divs[i++];){
+      item.style.backgroundColor = `rgb(${~~(Math.random() * 155 + 100)}, ${~~(Math.random() * 200 + 55)}, ${~~(Math.random() * 155 + 100)})`;
+      offsetData.push([item.offsetLeft, item.offsetTop]);
+    }
+    
+    // 布局转换
+    for(i=0; i<len; i++){
+      divs[i].style.margin = 0;
+      divs[i].style.position = 'absolute';
+      divs[i].style.left = offsetData[i][0] + 'px';
+      divs[i].style.top = offsetData[i][1] + 'px';
+      
+      divs[i].index = i;
+      dragBox(divs[i]);
+    }
+    
+    function dragBox(ele){
+      ele.onmousedown = function (e){
+        e.preventDefault();
+        var dx = e.pageX - getRect(this, 'left');
+        var dy = e.pageY - getRect(this, 'top');
+        ele.style.zIndex = ++zIndex;
+        document.onmousemove = function (e){
+          var L = e.pageX - dx - getRect(ele.offsetParent, 'left');
+          var T = e.pageY - dy - getRect(ele.offsetParent, 'top');
+          
+          // 边界限制
+          if(L <= 0) L = 0;
+          if(T <= 0) T = 0;
+          if(L >= ele.offsetParent.clientWidth - ele.offsetWidth)
+            L = ele.offsetParent.clientWidth - ele.offsetWidth;
+          if(T >= ele.offsetParent.clientHeight - ele.offsetHeight)
+            T = ele.offsetParent.clientHeight - ele.offsetHeight;
+          
+          changeTarget(hitTarget(ele))
+          
+          ele.style.left = L + 'px';
+          ele.style.top = T + 'px';
+        };
+        document.onmouseup = function (){
+          document.onmousemove = document.onmouseup = null;
+          changePosition(ele, hitTarget(ele));
+        };
+      }
+    }
+    
+    // 找到碰撞的最近的那个元素
+    function hitTarget(ele){
+      var min = Infinity, node = null;
+      for(var i=0; i<len; i++){
+        if(duang(ele, divs[i]) && ele != divs[i]){
+          if(min > distance(ele, divs[i])){
+            min = distance(ele, divs[i]);
+            node = divs[i];
+          }
+        }
+      }
+      return node;
+    }
+    
+    // 获取两个元素之间的距离
+    function distance(ele1, ele2){
+      var dx = ele1.offsetLeft - ele2.offsetLeft;
+      var dy = ele1.offsetTop - ele2.offsetTop;
+      return Math.sqrt(dx*dx + dy*dy);
+    }
+    
+    // 给最近的元素添加一个边框
+    function changeTarget(obj){
+      for(i=0; i<len; i++){
+        divs[i].style.border = '';
+      }
+      if(obj)
+        obj.style.border = '2px solid #000';
+    }
+    
+    // 交换位置
+    function changePosition(current, target){
+      if(target){
+        animation(current, {
+          left: offsetData[target.index][0],
+          top: offsetData[target.index][1]
+        }, 200);
+        animation(target, {
+          left: offsetData[current.index][0],
+          top: offsetData[current.index][1]
+        }, 200, function (){
+          this.style.border = '';
+          // 交换索引值
+          [current.index, target.index] = [target.index, current.index];
+        });
+      }else{
+        animation(current, {
+          left: offsetData[current.index][0],
+          top: offsetData[current.index][1]
+        }, 200)
+      }
+    }
+    
+  </script>
+</body>
+</html>

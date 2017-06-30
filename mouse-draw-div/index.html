@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <script>
+    document.onmousedown = function (e){
+      e.preventDefault();
+      
+      // 按下的时候的横纵坐标
+      var startX = e.pageX, startY = e.pageY;
+      
+      // 创建一个画框的div
+      var div = document.createElement('div');
+      div.style.position = 'absolute';
+      div.style.left = '-9999px';
+      div.style.top = '-9999px';
+      div.style.width = div.style.height = 0;
+      div.style.border = '1px dashed rgb(132, 150, 246)';
+      div.style.backgroundColor = 'rgba(132, 150, 246, 0.1)';
+      
+      document.body.appendChild(div);
+      
+      document.onmousemove = function (e){
+        var currentX = e.pageX, currentY = e.pageY;
+        
+        div.style.width = Math.abs(currentX - startX) + 'px';
+        div.style.height = Math.abs(currentY - startY) + 'px';
+        div.style.left = Math.min(currentX, startX) + 'px'; 
+        div.style.top = Math.min(currentY, startY) + 'px';
+      };
+      
+      document.onmouseup = function (){
+        document.onmouseup = document.onmousemove = null;
+        document.body.removeChild(div);
+      };
+    };
+  </script>
+</body>
+</html>
