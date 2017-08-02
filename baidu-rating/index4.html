@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>百度评分</title>
+		<style>
+			body,h1 {
+				margin: 0;
+				padding: 0;
+				-webkit-font-smoothing: antialiased;
+			}
+			.starts{
+				overflow:hidden;
+			}
+			.starts span{
+				display: block;
+				float: left;
+				padding: 3px;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="pingfen.css"/>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="baidu">
+				<div class="caption">
+					<h1></h1>
+					<span>总体评价</span>
+				</div>
+				<div class="context">
+					<div class="starts">
+						<span>☆</span>
+						<span>☆</span>
+						<span>☆</span>
+						<span>☆</span>
+						<span>☆</span>
+					</div>
+					<div class="info"></div>
+				</div>
+				<div class="tips">
+					小提示：点击星星就能打分
+				</div>
+			</div>
+		</div>
+		<script>
+  // ★ ☆
+  
+  	/*
+  	 *需求
+  	 *	移动星星onmouseover 右侧文字变更
+  	 *	点击星星确定 移开鼠标显示已修改的评分
+  	 */
+  	var oStars = document.querySelector('.starts');
+  	var arrStar = oStars.querySelectorAll('span');
+  	var oInfo = document.querySelector('.info');
+  	var arrExp = ['极差', '一般', '不错', '推荐', '力推'];
+  	var isCheacked = false;
+
+		var starNum = starFinal = median= 0;
+		//num:传入点亮星星的个数
+		//finalnum:最终点亮星星的个数
+		//median:一个中间值
+							
+		function fnShow(starNum) {
+		 starFinal= starNum || median;//如果传入的starNum为0，则starFinal取tempnum的值
+		 for (var i = 0; i < arrStar.length; i++) {
+		  if (i < starFinal) {
+		  	arrStar[i].innerHTML = '★';
+		  	oInfo.style.display = 'block';
+			oInfo.innerHTML = arrExp[i]; 
+		  } else {
+		  	arrStar[i].innerHTML = '☆';
+		  }
+		 }
+		}
+
+		var prev = 0;
+		var isCheacked = false;
+
+		for (var i = 0; i < arrStar.length; i++) {
+			arrStar.isCheacked = false;
+			(function fn(i){
+				arrStar[i].onmouseover = function() { //鼠标经过点亮星星。
+				  fnShow(i+1);//传入的值为正，就是starFinal
+				}
+				arrStar[i].onmouseout = function() { //鼠标离开时星星变暗
+				  fnShow(0);//传入值为0，starFinal为tempnum,初始为0
+				  if ( starFinal == 0 ) {
+				  	oInfo.style.display = 'none';
+				  } else {
+				  	oInfo.style.display = 'block';
+				  }
+				}
+
+				arrStar[i].onclick = function() { //鼠标点击,同时会调用onmouseout,改变tempnum值点亮星星
+				  if ( !this.isCheacked ) {
+				  	arrStar[prev].isCheacked = false;
+				  	prev = i;
+				  	median = i+1;
+				  } else {
+				  	prev = median = 0;
+				  }
+				  this.isCheacked = !this.isCheacked;
+				}
+			})(i);
+		}
+		</script>
+	</body>
+</html>

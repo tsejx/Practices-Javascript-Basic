@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>create new file</title>
+	<style>
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	ul,
+	li {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.container {
+		position: relative;
+		margin: 50px auto;
+		width: 750px;
+		height: 500px;
+		background: skyblue;
+	}
+
+	.list {
+		position: relative;
+		width: 700px;
+		height: 380px;
+		margin: 20px auto;
+	}
+	.list li {
+		float: left;
+		width: 120px;
+		height: 120px;
+		margin: 8px;
+		border-radius: 10px;
+		border: 1px solid #fff;
+		background: url('./file.png') center 10px no-repeat;
+		background-size: 60%;
+		text-align: center;
+	}
+	.list li:hover,.list li.active {
+		background-color: #fff;
+	}
+	.list li p, .list li input {
+		display: inline-block;
+		position: relative;
+		
+		width: 100%;
+		height: 14px;
+		font-size: 14px;
+		font-family: "微软雅黑";
+		text-align: center;
+		line-height: 14px;
+		z-index: 10;
+	}
+	.list li p {
+		top: 80px;
+		width: 100%;
+	}
+	.list li input {
+		top: 90px;
+		width: 90%;	
+		margin: 0 auto;
+		display: none;
+	}
+
+	.container button {
+		position: relative;
+		top: 10px;
+		left: calc(40% - 50px);
+		width: 100px;
+		height: 60px;
+		border-radius: 5px;
+		outline: none;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<button class="create-file">新建文件夹</button>
+		<button class="cancel-file">删除文件夹</button>
+		<ul class="list"></ul>
+	</div>
+	<script>
+		var create = document.querySelector('.create-file');
+		var cancel = document.querySelector('.cancel-file');
+		var list = document.querySelector('.list');
+		var arr = [];
+
+		create.onclick = function() {
+
+			var li = document.createElement('li');
+			var p = document.createElement('p');
+			var input = document.createElement('input');
+
+			input.setAttribute('type', 'text');
+			input.onkeydown = function() {
+
+				var e = event || window.event || arguments.callee.caller.arguments[0];
+
+				if (e && e.keyCode == 13) { // enter 键
+					if (!this.value || !this.value.trim()) {
+						alert('请输入内容');
+						this.focus();
+						return;
+					}
+					if (this.value.length > 12) {
+						alert('你输入的文件名太长啦！');
+						this.focus();
+						return;
+					}
+
+					this.previousElementSibling.innerHTML = this.value;
+					this.previousElementSibling.style.display = 'inline-block';
+					this.style.display = 'none';
+
+				}
+			}
+
+			p.innerHTML = '新建文件夹';
+			p.onclick = function() {
+				this.nextElementSibling.value = this.innerHTML;
+				this.style.display = 'none';
+				this.nextElementSibling.style.display = 'inline-block';
+			}
+
+			li.onclick = function() {
+				li.classList.toggle('active');
+				if (li.className === 'active') {
+					arr.push(this);
+				} else {
+					spliceOne(arr, arr.indexOf(this));
+				}
+			}
+
+			li.appendChild(p);
+			li.appendChild(input);
+			list.appendChild(li);
+
+		}
+
+		cancel.onclick = function() {
+			for (var i = 0; i < arr.length; i++) {
+				list.removeChild(arr[i]);
+			};
+			arr = [];
+		}
+
+		function spliceOne(arr, index) {
+			for (var i = index; i < arr.length; i++) {
+				arr[i] = arr[i + 1];
+			}
+			arr.pop();
+		}
+	</script>
+</body>
+</html>

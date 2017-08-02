@@ -1,0 +1,115 @@
+/*最外层容器*/
+.wrap {
+	width: 764px;
+	height: 800px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -400px 0 0 -382px;
+	background: url(bg.jpg) no-repeat center center;
+	background-size: cover;
+	overflow: hidden;
+}
+
+.wrap .baidu {
+	width: 460px;
+	height: 200px;
+	background: #FFF;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	border-radius: 5px;
+}
+
+.wrap .caption {
+	width: 100%;
+	height: 70px;
+	position: relative;
+}
+
+.wrap .caption h1 {
+	position: absolute;
+	background: url(logo.jpg) no-repeat center center;
+	background-size: cover;
+	width: 124px;
+	height: 31px;
+	top: 20px;
+	left: 108px;
+}
+
+.wrap .caption span {
+	position: absolute;
+	border-left: 1px solid #000;
+	width: 100px;
+	height: 22px;
+	font: 18px/22px "微软雅黑";
+	padding: 0 8px;
+	box-sizing: border-box;
+	left: 248px;
+	top: 25px;
+	font-weight: bold;
+}
+
+.wrap .context {
+	width: 100%;
+	height: 72px;
+	overflow: hidden;
+	position: relative;
+}
+.wrap .starts {
+	width: 200px;
+	height: 33px;
+	position: absolute;
+	text-align: center;
+	left: 88px;
+	top: 10px;
+}
+.wrap .starts span {
+	font-size: 33px;
+	line-height: 33px;
+	color: #de3163;
+	cursor: pointer;
+}
+.wrap .info {
+	display: none;
+	width: 60px;
+	height: 30px;
+	text-align: center;
+	font: 14px/30px "微软雅黑";
+	position: absolute;
+	left: 310px;
+	top: 12px;
+	background: #e15671;
+	border-radius: 6px;
+	color: #FFF;
+}
+
+.wrap .tips {
+	width: 100%;
+	height: 58px;
+	background: #E15671;
+	text-align: center;
+	font: 18px/58px "微软雅黑";
+	cursor: default;
+	color: #FFFFFF;
+	border-radius: 0 0 5px 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

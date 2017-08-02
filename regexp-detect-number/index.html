@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.wrap {
+			position: absolute;
+			top: 120px;
+			left: calc(50% - 110px);
+			width: 320px;
+			height: 260px;
+			overflow: hidden;
+			border-radius: 10px;
+			background: #EA99BB;
+		}
+		.wrap .input {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.wrap .input-text {
+			position: relative;
+			width: 160px;
+			height: 16px;
+			padding: 10px;
+			margin: 20px 20px;
+			line-height: 30px;
+			outline: none;
+		}
+		.wrap .btn {
+			width: 80px;
+			height: 40px;
+			margin: 20px 5px;
+			border-radius: 10px;
+			background: #f6f6f6;
+			outline: none;
+		}
+		
+		.wrap .output {
+			width: 280px;
+			height: 140px;
+			margin: 10px;
+			padding: 10px;
+			border-radius: 10px;
+			background: #f6f6f6;
+			color: #000;
+			font-size: 14px;
+			font-weight: bold;
+		}
+		.wrap .output span,
+		.wrap .out p {
+			display: inline;
+		}
+
+
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="input">
+			<input class="input-text" type="text"></inpput><button class="btn"></button>
+		</div>
+		<div class="output"><span>字符串中的数字为：</span><p class="output-text"></p></div>
+	</div>
+	<script>
+	  var btn = document.querySelector('.btn');
+
+	 	btn.addEventListener('click',checkString);
+
+	 	function checkString(){
+	 		var inputVal = document.querySelector('.input-text').value,
+	 		outputVal = document.querySelector('.output-text');
+
+	 		var str = inputVal.match(/\d\d*/g).join(',');
+
+	 		outputVal.innerHTML = str;
+	 	}
+
+
+	</script>
+</body>
+</html>

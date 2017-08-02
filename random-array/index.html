@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		html,
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			position: relative;
+			width: 800px;
+			height: 500px;
+			margin: 50px auto;
+			border: 2px solid #000;
+			border-radius: 10px;
+		}
+		.btn{
+			position: relative;
+			top: 10px;
+			left: calc(50% - 110px);
+			width: 100px;
+			height: 50px;
+			border: 1px solid #fff;
+			border-radius: 10px;
+			background-color: #F35FA1;
+			color: #fff;
+			text-align: center;
+			line-height: 50px;
+			outline: none;
+			cursor: pointer;
+		}
+		.btn:hover{
+			background-color: #EF882E;
+			color: #000;
+		}
+		.wrap{
+			width: 750px;
+			height: 300px;
+			margin: 50px auto;
+			border: 1px solid #000;
+			clear: both;
+		}
+		.wrap div{
+			float: left;
+			width: 150px;
+			height: 150px;
+			box-sizing: border-box;
+			border: 1px solid #000;
+			background-color: skyblue;
+			color: #000;
+			font-size: 72px;
+			text-align: center;
+			line-height: 150px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<button class="btn order">随机排列</button>
+		<button class="btn contrast">从小到大</button>
+		<div class="wrap">
+			<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+		</div>
+	</div>
+	<script src="./xjxtool.js"></script>
+	<script type="text/javascript">
+	var oRandom = xjx.$('.order');
+	var oContrast = xjx.$('.contrast');
+	var oWrap = xjx.$('.wrap');
+	var arrDivs = xjx.$('div',oWrap);
+	var	arrOrder = [];
+	var isOrder = false;
+
+	//初始化
+	//获取到每个div
+	for (var i = 0; i < arrDivs.length; i++) {
+		arrDivs[i].index = i;
+		arrOrder.push(arrDivs[i].index+1);
+		xjx.html(arrDivs[i],i+1);	
+	}
+	var arrCurrent = [];
+	
+	console.log(xjx.css(arrDivs[0],'top'));
+
+	oRandom.onclick = function(){
+		var arrNext = arrOrder.sort(randomsort);
+		bianli(arrDivs,arrNext);
+		arrCurrent = arrNext;
+	}
+
+
+	oContrast.onclick = function(){
+		if (arrCurrent = []) {
+			arrCurrent = arrOrder;
+		}
+		if (!isOrder) {//isOrder == 'false';
+			var arrNext = arrCurrent.sort(function(a,b){
+				return a - b;
+			})
+			bianli(arrDivs,arrNext)
+			xjx.html(oContrast,'从大到小');
+		} else {//isOrder == 'true';
+			var arrNext = arrCurrent.sort(function(a,b){
+				return b - a;
+			})
+			bianli(arrDivs,arrNext)
+			xjx.html(oContrast,'从小到大');
+		}
+		arrCurrent = arrNext;
+		isOrder = !isOrder;
+	}
+
+	function randomsort(){
+		return 0.5 -  Math.random();
+	}
+
+	function bianli(arr1,arr2){
+		for (var i = 0; i < arr1.length; i++) {
+			xjx.html(arr1[i],arr2[i]);
+		}
+	}
+
+	
+
+
+	</script>
+</body>
+</html>
