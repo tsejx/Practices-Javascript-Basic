@@ -1,0 +1,213 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.slide-container,
+.slide-container .slides,
+.slide-container .slides-item,
+.slide-container .slides-item .pic {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/*最外层容器的样式*/
+.slide-container {
+  position: relative;
+}
+
+/*幻灯片图片容器的样式*/
+.slide-container .slides {
+  height: calc(100% - 16px);
+  z-index: 2;
+  background-size: cover;
+}
+
+.slide-container .slides-item {
+  transition: 1s;
+  opacity: 0;
+}
+
+.slide-container .slides-item .pic {
+  background-image: url(../image/1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/*-----------------------------*/
+.slide-container .slides .left {
+  transform: translateX(-50%) scale(0.7);
+}
+
+.slide-container .slides .right {
+  transform: translateX(50%) scale(0.7);
+}
+
+.slide-container .slides .active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/*-----------------------------*/
+
+/*导航栏按钮*/
+.slide-container .navs {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.slide-container .navs:hover {
+  z-index: 9999;
+}
+
+.slide-container .navs .navs-item {
+  flex: 1;
+  height: 100%;
+  background-color: #666;
+  position: relative;
+}
+
+.slide-container .navs .navs-item + .navs-item {
+  margin-left: 1px;
+}
+
+.slide-container .navs .navs-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  transition: 500ms;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.slide-container .navs .navs-item:hover:after {
+  width: 100%;
+}
+
+.slide-container .navs .navs-item img {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 16px;
+  transform: translateY(-40%);
+  opacity: 0;
+  transition: 500ms;
+  z-index: 2;
+}
+
+.slide-container .navs .navs-item:hover img {
+  opacity: 1;
+  transform: translateY(0);
+  -webkit-box-reflect: below 0px -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(transparent),
+    color-stop(80%, transparent),
+    to(rgba(255,255,255,.7))
+  );
+}
+
+.slide-container .navs .navs-item.active {
+  background-color: #f88;
+}
+
+.slide-container .navs .navs-item.active:hover:after {
+  width: 0;
+}
+.slide-container .navs .navs-item.active:hover img {
+  opacity: 0;
+}
+
+/*左右切换按钮*/
+
+.slide-container .prev,
+.slide-container .next {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 100px;
+  z-index: 999999;
+  opacity: 0;
+  transition: 300ms;
+}
+
+.slide-container .prev {
+  left: 0;
+  background: url(../image/btn_prev.png) no-repeat center center;
+}
+
+.slide-container .next {
+  background: url(../image/btn_next.png) no-repeat center center;
+}
+
+.slide-container:hover .prev,
+.slide-container:hover .next {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
