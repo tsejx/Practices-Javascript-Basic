@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Drag Box</title>
+	<style>
+	  body {
+	  	background-color: #f6f6f6;
+	  }
+	  .box {
+	  	padding: 50px;
+	  	background-color: skyblue;
+      cursor: pointer;
+	  }
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script>
+	  //ES5 面向对象 原型链 Bind绑定
+	  // function Drag(ele){
+   //    if (typeof ele === 'undefined') {
+   //      throw new Error('First parameter can not find!');
+   //    }
+
+   //    this.ele = ele;
+   //    this.ele.style.position = 'absolute';
+
+   //    return this;
+   //  }
+
+   //  Drag.prototype.init = function(){
+
+   //    this.dragStart = this.dragStart.bind(this);
+   //    this.dragMove = this.dragMove.bind(this);
+   //    this.dragEnd = this.dragEnd.bind(this);
+
+   //    this.ele.addEventListener('mousedown',this.dragStart);
+
+   //    return this;
+   //  }
+
+   //  Drag.prototype.dragStart = function(e){
+
+   //    this.startX = e.pageX - this.getRect('left');
+   //    this.startY = e.pageY - this.getRect('top');
+
+   //    document.addEventListener('mousemove',this.dragMove);
+   //    document.addEventListener('mouseup',this.dragEnd);
+
+   //    return this;
+   //  }
+
+   //  Drag.prototype.dragMove = function(e){
+
+   //    var L = e.pageX - this.startX;
+   //    T = e.pageY - this.startY;
+
+   //    this.ele.style.left = L + 'px';
+   //    this.ele.style.top = T + 'px';
+
+   //    return this
+   //  }
+
+   //  Drag.prototype.dragEnd = function(){
+
+   //    document.removeEventListener('mousemove',this.dragMove);
+   //    document.removeEventListener('mouseup',this.dragEnd);
+
+   //    return this;
+   //  }
+
+   //  Drag.prototype.getRect = function(type){
+   //    return this.ele.getBoundingClientRect()[type];
+   //  }
+
+   //  var box = document.querySelector('.box');
+
+   //  var eventDragBox = new Drag(box).init();
+
+	</script>
+
+  <script>
+    //ES6 class类
+    
+    class Drag{
+      constructor(ele){
+        if (typeof ele === 'undefined') {
+          throw new Error('First parameter can not find!')
+        }
+        this.ele = ele;
+        this.ele.style.position = 'absolute';
+
+        return this;
+      }
+      init(){
+        this.dragStart = this.dragStart.bind(this);
+        this.dragMove = this.dragMove.bind(this);
+        this.dragEnd = this.dragEnd.bind(this);
+
+        this.ele.addEventListener('mousedown',this.dragStart);
+
+        return this;
+      }
+      dragStart(e){
+        this.startX = e.pageX - this.getRect('left');
+        this.startY = e.pageY - this.getRect('top');
+
+        document.addEventListener('mousemove',this.dragMove);
+        document.addEventListener('mouseup',this.dragEnd);
+        return this;
+      }
+      dragMove(e){
+        var L = e.pageX - this.startX,T = e.pageY - this.startY;
+
+        this.ele.style.left = L + 'px';
+        this.ele.style.top = T + 'px';
+
+        return this;
+      }
+      dragEnd(){
+        document.removeEventListener('mousemove',this.dragMove);
+        document.removeEventListener('mouseup',this.dragEnd);
+
+        return this;
+      }
+      getRect(type){
+        return this.ele.getBoundingClientRect()[type];
+      }
+    }
+
+    var box = document.querySelector('.box');
+
+    var eventDrag = new Drag(box).init();
+
+  </script>
+
+</body>
+</html>
