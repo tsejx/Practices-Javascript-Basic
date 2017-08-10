@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        html,
+        body{
+          margin: 0;
+          padding: 0;
+        }
+        #wrap{
+            width: 760px;
+            height: 590px;
+            margin: 50px auto;
+            background: url(imgs/bg.png);
+            overflow: hidden;
+        }
+        section{
+            width: 420px;
+            height: 320px;
+            border: 3px solid #fff;
+            margin: 173px auto 0;
+            overflow: -hidden;
+            position: relative;
+        }
+        .box{
+          position: relative;
+          margin: 0;
+          padding: 0;
+          width: 420px;
+          height : 320px;
+          overflow: hidden;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            width: 500%;
+            position: absolute;
+            left: -420px;
+            /* left: 0px; */
+            top: 0;
+        }
+        li{
+            list-style: none;
+            float: left;
+            position: relative;
+        }
+        img{
+            vertical-align: top;
+            width: 420px;
+            height: 320px;
+        }
+        a{
+            text-decoration: none;
+        }
+        #prev,#next{
+            width: 49px;
+            height: 63px;
+            line-height: 63px;
+            color: #fff;
+            font-size: 50px;
+            text-align: center;
+            background: black;
+            opacity: .5;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            opacity: 0.3
+        }
+        #prev{
+            left: 0;
+        }
+        #next{
+            right: 0;
+        }
+        nav{
+            position: absolute;
+            bottom: 16px;
+            text-align: center;
+            width: 100%;
+            font-size: 0;
+        }
+        nav a{
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            margin: 0 5px;
+            display: inline-block;
+        }
+        nav .active{
+            height: 20px;
+            transition: 300ms;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <section>
+          <div class="box">
+            <ul id="banner">
+                <li><img src="imgs/5.jpg" /></li>
+                <li><img src="imgs/1.jpg" /></li>
+                <li><img src="imgs/2.jpg" /></li>
+                <li><img src="imgs/3.jpg" /></li>
+                <li><img src="imgs/4.jpg" /></li>
+                <li><img src="imgs/5.jpg" /></li>
+                <li><img src="imgs/1.jpg" /></li>
+            </ul>
+          </div>
+            <a href="javascript:;" id="prev">&lt;</a><a href="javascript:;" id="next">&gt;</a>
+            <nav class="nav">
+                <a href="javascript:;" class="active"></a>
+                <a href="javascript:;"></a>
+                <a href="javascript:;"></a>
+                <a href="javascript:;"></a>
+                <a href="javascript:;"></a>
+            </nav>
+        </section>
+    </div>
+    <script type="text/javascript" src="xjxtool.js"></script>
+    <script type="text/javascript">
+    var oBanner = xjx.$('#banner');
+    var arrImgs = xjx.$('img');
+
+    var oPrev = xjx.$('#prev');
+    var oNext = xjx.$('#next');
+
+    var nav = xjx.$('.nav');
+    var arrNavs = nav.querySelectorAll('a');
+    
+    var len = arrImgs.length,current = 1,oneImgWidth = xjx.css(arrImgs[0],'width');
+
+    xjx.css(oBanner,'width',len * 100 +'%');
+
+    oPrev.onclick = function(){
+      current--;
+      if ( current === -1) {
+        xjx.css(oBanner, 'left', -(len-2)*420 +'px');
+        current = len-3;
+      }
+      xjx.animate(oBanner,{
+        left: -oneImgWidth * current
+      },300,'linear')
+      navActive(current);
+    }
+
+    oNext.onclick = function(){
+      current++;
+      if ( current === len) {
+        xjx.css(oBanner, 'left', '');
+        current = 2;      
+      }
+      xjx.animate(oBanner,{
+        left: -oneImgWidth * current
+      },300,'linear')
+      navActive(current);
+    }
+
+    function navActive(current){
+        for (var i = 0; i < arrNavs.length; i++) {
+          arrNavs[i].className = '';
+        }
+        if ( current === len-1) {
+          arrNavs[0].className = 'active';
+        } else if(current === 0){
+          arrNavs[arrNavs.length-1].className = 'active';
+        } else{
+          arrNavs[current-1].className = 'active';
+        }
+    }
+
+    for (var i = 0; i < arrNavs.length; i++) {
+      arrNavs[i].index = i;
+      arrNavs[i].onclick = function(){
+        current = this.index+1;
+        for (var i = 0; i < arrNavs.length; i++) {
+          arrNavs[i].className = '';
+        }
+        this.className = 'active';
+          xjx.animate(oBanner,{
+          left: -oneImgWidth * current
+        },300,'linear')
+      }
+    }
+
+    </script>
+</body>
+</html>

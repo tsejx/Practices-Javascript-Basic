@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    .btn {
+      width: 100px;
+      height: 40px;
+      display: block;
+      margin: 20px auto;
+    } 
+    .container {
+      width: 800px;
+      height: 450px;
+      margin: 0 auto;
+      border: 10px solid #000;
+      position: relative;
+      overflow: hidden;
+    }
+    .slides {
+      position: absolute;
+      left: 0;
+      top: 0;
+      /*width: 500%;*/
+      height: 450px;
+      /*overflow: hidden;*/
+    }
+    .slides img {
+      float: left;
+      width: 800px;
+    }
+  </style>
+</head>
+<body>
+  <button class="btn">下一张</button>
+  <div class="container">
+    <div class="slides">
+      <img src="./imgs/1.jpg" class="silde-itmes">
+      <img src="./imgs/2.jpg" class="silde-itmes">
+      <img src="./imgs/3.jpg" class="silde-itmes">
+      <img src="./imgs/4.jpg" class="silde-itmes">
+      <img src="./imgs/5.jpg" class="silde-itmes">
+      <img src="./imgs/1.jpg" class="silde-itmes">
+    </div>
+  </div>
+  <script src="../xjxtool.js"></script>
+  <script>
+    var slideImgs = xjx.$('.slides img');
+    var slidesWrap = xjx.$('.slides');
+    
+    var len = slideImgs.length, current = 0, oneImgWidth = xjx.css(slideImgs[0], 'width');
+    
+    xjx.css(slidesWrap, 'width', len * 100 + '%');
+    
+    xjx.$('.btn').onclick = function (){
+      current++;
+      
+      if(current === len){
+        xjx.css(slidesWrap, 'left', '');
+        current = 1;
+      }
+      
+      // xjx.css(slidesWrap, 'left', -oneImgWidth * current);
+      xjx.animate(slidesWrap, {left: -oneImgWidth * current}, 300, 'linear');
+    };
+  
+  </script>
+</body>
+</html>
