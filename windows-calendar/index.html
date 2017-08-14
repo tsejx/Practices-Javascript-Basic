@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+    html,
+    body{
+    	margin: 0;
+    	padding: 0;
+    }
+    div::selection,a::selection,span::selection{
+      background: none;
+    }
+    .calendar{
+    	position: relative;
+    	width: 360px;
+    	height: 460px;
+      margin: 5% auto;
+    	background-color: #28605f;
+      cursor: default;
+    }
+    .cur-time{
+    	position: relative;
+    	width: 100%;
+    	height: 112px;
+    	border-bottom: 1px solid #56817e;
+    }
+    .time{
+    	position: relative;
+    	top: 26px;
+    	left: 24px;
+    	width: 160px;
+    	height: 34px;
+    	color: #fff;
+    	font-size: 34px;
+      font-family: "微软雅黑";
+    }
+    .today{
+    	position: relative;
+      top: 50px;
+      left: 24px;
+      width: 160px;
+      height: 14px;
+      color: #5cdce6;
+      font-size: 14px;
+    }
+    .today:hover{
+      color: #a1b8ba;
+    }
+    .cur-month{
+      display: flex;
+      position: relative;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .set-month{
+      position: relative;
+      left: 24px;
+      width: 80px;
+      color: rgba(255,255,255,0.8);
+      line-height: 50px;
+      font-size: 14px;
+    }
+    .set-month:hover{
+      color: rgba(255,255,255,1);
+    }
+    .shift-month{
+      position: relative;
+      right: 28px;
+    }
+    .cur-month a{
+      position: relative;
+      width: 20px;
+      height: 20px;
+      margin:0 10px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: bold;
+    }
+    .cur-month a:hover{
+      color: rgba(255, 255, 255, 1);
+    }
+    .prev-month{
+      transform: rotate(90deg);
+    }
+    .next-month{
+      transform: rotate(-90deg);
+    }
+
+    /* 数字日历(显示日期) */
+    .date-dates{
+      /* 制作多页面测试 */
+      /* display: none; */
+      transform: scale(1);
+    }
+    .date-dates span{
+      display: inline-block;
+      width: 46px;
+      height: 40px;
+      margin: 1px;
+      box-sizing: border-box;
+      border: 2px solid #28605f;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      line-height: 40px;
+    }
+    /* 日历日期展示框 */
+    .date-container{
+      display: flex;
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+    }
+    /* 日期列表300% */
+    .date-nums-list{
+      position: relative;
+      width: 300%;
+      height: 252px;
+      top: -252px;
+    }
+    .date-nums-prev,.date-nums-next,.date-nums{
+      display: flex;
+      /* position: relative; */
+      width: 360px;
+      height: 252px;
+      justify-content: center;
+      align-items: center;
+    }
+    /* 日历表的星期 */
+    .date-days{
+      /* display: none; */
+      display: flex;
+      position: relative;
+      /* width: 100%; */
+      justify-content: center;
+      align-items: center;
+    }
+    .date-nums,.date-nums-prev,.date-nums-next{
+      height: auto;
+      flex-wrap: wrap;
+    }
+    .date-nums span:hover{
+      border-color: rgba(184, 198, 204, .7);
+    }
+    .date-nums span.active{
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .date-nums span.current-day{
+      background-color: #00b7c3;
+      /* border-color: #00b7c3; */
+    }
+
+    /* 数字日历(显示月份) */
+    .month-dates{
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      /* 制作多页面测试 */
+      display: none;
+      overflow: hidden;
+    }
+    .month-nums span{
+      display: inline-block;
+      width: 82px;
+      height: 70px;
+      margin: 1px;
+      box-sizing: border-box;
+      border: 2px solid rgba(184, 198, 204, 0);
+      color: #fff;
+      font-size: 16px;
+      text-align: center;
+      line-height: 70px;
+    }
+    .month-nums-list{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      /* top: -252px; */
+    }
+    .month-nums-list div{
+      display: flex;
+      width: 100%;
+      /* height: 252px; */
+      height: auto;
+      flex-wrap: wrap;
+    }
+    .month-nums,.month-nums-prev,.month-nums-next{
+      height: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .month-nums span.active{
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .month-nums span.current-month{
+      background-color: #00b7c3;
+    }
+    .month-nums span:hover{
+      border-color: rgba(184, 198, 204, .7);
+    }
+	</style>
+</head>
+<body>
+  <div class="calendar">
+    <div class="cur-time">
+      <div class="time">Loading</div>
+      <div class="today">Loading</div>
+    </div>
+  	<div class="cur-month">
+      <div class="set-month">2017年4月</div>
+      <div class="shift-month">
+        <a class="prev-month"><</a>
+        <a class="next-month">></a>
+      </div>
+  	</div>
+  	<div class="date-dates">
+      <div class="date-days">
+        <span>一</span>
+        <span>二</span>
+        <span>三</span>
+        <span>四</span>
+        <span>五</span>
+        <span>六</span>
+        <span>日</span>
+      </div>
+      <div class="date-container">
+        <div class="date-nums-list">
+          <div class="date-nums-prev"></div>
+          <div class="date-nums"></div>
+          <div class="date-nums-next"></div>
+        </div>
+      </div>
+  	</div>
+    <div class="month-dates">
+        <div class="month-nums-list">
+          <div class="month-nums-prev"></div>
+          <div class="month-nums"></div>
+          <div class="month-nums-next"></div>
+        </div>
+    </div>
+  </div>
+  <script src="./xjxtool.js"></script>
+  <script>
+    //生成当时时间
+    var oTime = xjx.$('.time'),oToday = xjx.$('.today')
+    var nowTime = new Date();
+    var oSetMonth = xjx.$('.set-month');
+    var arrDays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六']
+
+    setInterval(function(){
+      var nowDate = new Date();
+      autoPlay(nowDate);
+      autoDate(nowDate);
+    },500);
+
+    //时钟运行
+    function autoPlay(nowDate){
+      var h = nowDate.getHours(),m = nowDate.getMinutes(),s = nowDate.getSeconds();
+      xjx.html(oTime,add0(h) + ':' + add0(m) + ':' +add0(s));
+    }
+    //补0函数
+    function add0(num){
+      return num <10?'0'+num:''+num;
+    }
+
+    //自动生成日期
+    function autoDate(nowDate){
+      var y = nowDate.getFullYear(),m = nowDate.getMonth()+1,d = nowDate.getDate(),ds = nowDate.getDay();
+      xjx.html(oToday,y + '年' + m + '月'+  d + '日,' + arrDays[ds]);
+    }
+    
+    //点击上下按钮
+    var oPrev = xjx.$('.prev-month'),oNext = xjx.$('.next-month');
+    var n = 0;
+    oPrev.onclick = function(){
+      n--;
+      xjx.animate(oDatesList,{
+        top:0,
+      },200,function(){
+        xjx.css(oDatesList,{
+          top:-252,
+        })
+      });
+      init(n);
+    }
+    oNext.onclick = function(){
+       n++;
+       xjx.animate(oDatesList,{
+          top:-504,
+        },200,function(){
+          xjx.css(oDatesList,{
+            top:-252,
+          })
+        })
+       init(n);
+    }
+
+
+    //日历日期框
+    //当前月的日期框，上个月的日期框，以及下个月的日期框
+    var oDates = xjx.$('.date-nums'),oDatesPrev = xjx.$('.date-nums-prev'),oDatesNext = xjx.$('.date-nums-next'),oDatesList = xjx.$('.date-nums-list');
+    
+    function sentDateToHtml(ele,n){
+      calendarDate(n);
+      var currentDate = calendarDate(n);
+      ele.innerHTML  = currentDate.dateStr;
+      //改变左上角显示的年月
+      xjx.html(oSetMonth, currentDate.years + '年' + currentDate.months + '月');
+    }
+
+    //初始化页面
+    function init(n){
+      sentDateToHtml(oDatesPrev,n-1);
+      sentDateToHtml(oDatesNext,n+1);
+      sentDateToHtml(oDates,n);
+      clickDateNum();
+    };
+    init(0);
+    
+    function calendarDate(n){
+      //当前时间
+      var nowTime = new Date();
+
+      // 标准当前年月日
+      var standardYears = nowTime.getFullYear(),standardMonth = nowTime.getMonth()+1,standardDate = nowTime.getDate();
+
+      nowTime.setMonth(nowTime.getMonth() + n);
+
+      //变化后的年月
+      var y = nowTime.getFullYear(),m = nowTime.getMonth()+1;
+
+      //设置为当前月1号
+      nowTime.setDate(1);
+
+      //获取当前月1号是星期几
+      var currentFirstDay = nowTime.getDay();//当前月1号星期几
+
+      //设定为下个月
+      nowTime.setMonth(nowTime.getMonth()+1);
+
+      //设定为下个月0号，即当前月最后一天
+      nowTime.setDate(0);
+     
+      //获取的当前月天数
+      var currentMonthNum = nowTime.getDate();//当前月日期数量
+
+      //设置为当前月0号，即上个月最后一天
+      nowTime.setDate(0);
+      //获取上个月总天数
+      var prevMonthNum = nowTime.getDate();
+      //将nowTime月份变回当前月一号(用来判断当前显示的日历是否是本月显示，以便高亮当前日期)
+      nowTime.setDate(nowTime.getDate()+1);
+
+      //获取上个月剩余天数
+      var prevMonthLastNum;
+      if ( currentFirstDay != 0) {
+        prevMonthLastNum = currentFirstDay - 1;
+      } else {
+        prevMonthLastNum = 6;
+      }
+
+      //生成下个月开头部分
+      //42 - 当前月数量 -上个月剩余数量
+      var nextMonthNum = 42 - currentMonthNum - (prevMonthLastNum);
+
+      //innerHTML上个月
+      var str = '';
+      for (var i =  prevMonthNum - prevMonthLastNum + 1; i <= prevMonthNum; i++) {
+        str += `<span class="active">${i}</span>`;
+      }
+
+      var cls = '';
+      //innerHTML当前月
+      for (var i =  1; i <= currentMonthNum; i++) {
+        if ( i === standardDate && nowTime.getFullYear() === standardYears && nowTime.getMonth()+1 === standardMonth ) {
+          cls = 'current-day';
+        } else {
+          cls = '';
+        }
+        str += `<span class="${cls}">${i}</span>`;
+      }
+      //innerHTML下个月
+      for (var i =  1; i <= nextMonthNum; i++) {
+        str += `<span class="active">${i}</span>`;
+      }
+      return {dateStr:str,years:y,months:m};
+    }
+
+    oToday.onclick = function(){
+      n = 0;
+      init(0);
+      xjx.css(oMonthContainer,'display','none');
+      // xjx.css(oDateContainer,'display','block');
+      xjx.css(oDateContainer,{
+        scale:1,
+        display:'block',
+      })
+    }
+
+    function clickDateNum(){
+      for (var i = 0; i < 42; i++) {
+        xjx.$('span',oDates)[i].onclick = function(){
+          for (var i = 0; i < 42; i++) {
+            xjx.$('span',oDates)[i].style.borderColor = '';
+          };
+          xjx.css(this,'border-color','#24ABC7');
+        }
+      }
+    }
+    clickDateNum();
+
+
+    var oDateContainer = xjx.$('.date-dates'),oMonthContainer = xjx.$('.month-dates');
+
+    var isChecked = false;
+    xjx.css(oDateContainer,{scale:1,})
+    oSetMonth.onclick = function(){
+
+      xjx.animate(oDateContainer,{
+        scale:0.8,
+      },200,function(){
+        xjx.css(oDateContainer,'display','none');
+      });
+
+      xjx.animate(oMonthContainer,{
+          opacity:1,
+        },300,function(){
+          xjx.css(oMonthContainer,'display','block');
+        })
+
+
+    }
+
+    //月份页面
+    var oMonthsList = xjx.$('.month-nums-list'),oMonths = xjx.$('.month-nums'),oMonthsPrev = xjx.$('.month-nums-prev'),oMonthsNext = xjx.$('.month-nums-next');
+
+    function calendarMonth(){
+      var nowTime = new Date();
+      var standardYear = nowTime.getFullYear(),standardMonth = nowTime.getMonth()+1;
+
+      var y = nowTime.getFullYear();
+      //生成月份
+      var str = '';
+      var cls = '';
+      for (var i = 1; i <= 12; i++) {
+        if ( i === standardMonth && y === standardYear) {
+          cls = 'current-month';
+        } else {
+          cls = ''
+        }
+        str +=`<span class="${cls}">${i}月</span>`;
+      }
+      for (var i = 1; i <= 4; i++) {
+        str +=`<span class="active">${i}月</span>`;
+      }
+      oMonths.innerHTML = str;
+    }
+    calendarMonth();
+
+
+  </script>
+</body>
+</html>
